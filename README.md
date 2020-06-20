@@ -22,7 +22,7 @@ Please follow the [Pre-Workshop Instructions](#Instructions) prior to coming to 
 
 
 ## Break: noon-1pm
-[**Exercise 1**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_1_Rbasics---Exercises.html)
+[**Exercise 1**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_1_Rbasics---Exercises.html) (to be completed during the break)
 
 
 ## Session 2: 1pm-3pm
@@ -36,8 +36,7 @@ Please follow the [Pre-Workshop Instructions](#Instructions) prior to coming to 
 
 
 ## Break: 3pm-4pm
-**Exercise 2**
-
+**Exercise 2** (to be completed during the break)
 
 ## Session3: 4pm-5pm
 **Worked example: making a choropleth map in ggplot2**
