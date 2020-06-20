@@ -63,7 +63,7 @@ install.packages("maps", dependencies = TRUE)
 Additional "dependencies," or other packages necessary to run the three above, will also be installed. This make take a few minutes.
 
 ### Step 4: Download the data
-We will be working with a few datasets throughout the day.  Downloading these datasets beforehand may make things a bit easier / faster for you.  Make a folder for this class, then make a sub-folder in that named "data", and save these in there.  
+We will be working with a few datasets throughout the day.  Downloading these datasets beforehand may make things a bit easier / faster for you.  You can "save link as" for the links below, or look in the `data` folder of this repository.  Make a folder for this class, then make a sub-folder in that named "data", and save these in there.  
 - [nytimes data](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv)
 - [election data](https://raw.githubusercontent.com/tonmcg/US_County_Level_Election_Results_08-16/master/2016_US_County_Level_Presidential_Results.csv)
 - [census data](https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/counties/totals/co-est2019-alldata.csv)
