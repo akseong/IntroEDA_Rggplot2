@@ -13,15 +13,11 @@ Please follow the [Pre-Workshop Instructions](#Instructions) prior to coming to 
 # Syllabus
 ## Session 1: 10am-noon
 [**Part 1: R and RStudio basics:**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_1_Rbasics.html)
-- data types
-- subsetting
-- reading/writing data
-- constrol structures
-- functions
+- data types, subsetting, reading/writing data
+- constrol structures, functions
 
 [**Part 2: Basic data exploration and plotting in base R:**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_1_introEDA.html)
-- summaries
-- tables
+- summaries, tables
 - plotting different types of data
 
 
@@ -32,8 +28,7 @@ Please follow the [Pre-Workshop Instructions](#Instructions) prior to coming to 
 ## Session 2: 1pm-3pm
 [**Part 1: Introduction to ggplot2 and the "grammar of graphics"**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_2_Part1_ggplot2_intro.html)
 - understanding the logic and basic syntax of ggplot2
-- overlaying geoms
-- visualizing strata for comparison
+- overlaying geoms, visualizing strata for comparison
 
 **Part 2: ggplot2: beyond basics with an example**
 - data manipulation and preparation
@@ -80,7 +75,7 @@ RStudio is a set of integrated tools designed to help you be more productive wit
 ### Step 3: Install required R packages
 In R, packages are used to share code. A package bundles together code, data, documentation, and tests. As of May 2020, there were >15,000 packages available on the Comprehensive R Archive Network, or CRAN. This huge variety of packages is one of the reasons that R is so successful: the chances are that someone has already solved a problem that you’re working on, and you can benefit from their work by downloading their package and using their code.
 
-In this workshop, we will be using a number of packages-- `ggplot2`, `dplyr`, `maps`. I suggest installing them before our sessions begin. There are a few ways to do this (which we will discuss more during the workshop). For now, open up RStudio and try to run the following lines of code
+In this workshop, we will be using a number of packages-- `ggplot2`, `dplyr`, `maps`. I suggest installing them before our sessions begin: open up RStudio and try to run the following lines of code.
 
 ```r
 install.packages("ggplot2", dependencies = TRUE)
