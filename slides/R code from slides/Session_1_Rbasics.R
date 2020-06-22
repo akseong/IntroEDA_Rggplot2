@@ -1,21 +1,5 @@
-params <-
-list(reportdate = "`r format(Sys.time(), '%d %B %Y')`")
-
-## ----setup, include=FALSE, message=F, echo=F, warning=F------------------
-library(xaringanthemer)
-# style_xaringan(
-  # code_inline_background_color = "#C0C0C0"
-#   text_font_family = "Droid Serif",
-#   text_font_url = "https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic",
-#   header_font_google = google_font("Yanone Kaffeesatz")
-# )
-style_mono_accent(base_color = "#3C989E")
-
-# knitr::opts_chunk$set(cache=FALSE, warning=FALSE, message=FALSE, echo=TRUE, warning=FALSE, error=FALSE)
-knitr::opts_chunk$set(cache=TRUE, warning=TRUE, message=TRUE, echo=TRUE, warning=TRUE, error=TRUE)
-
-#set scientific notation digit threshold
-options(scipen=10)
+# #set scientific notation digit threshold
+# options(scipen=10)
 
 #load libraries
 library(ggplot2)
