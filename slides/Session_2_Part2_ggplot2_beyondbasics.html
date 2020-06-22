@@ -4,7 +4,7 @@
     <title>Intro to R and Data Visualization with ggplot2: Session 2 part 2</title>
     <meta charset="utf-8" />
     <meta name="author" content="Arnold Seong" />
-    <meta name="date" content="2020-06-21" />
+    <meta name="date" content="2020-06-22" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <script src="libs/kePrint-0.0.1/kePrint.js"></script>
@@ -18,7 +18,7 @@ class: center, middle, inverse, title-slide
 # Intro to R and Data Visualization with ggplot2: Session 2 part 2
 ## UCI Data Science Initiative
 ### Arnold Seong
-### 21 June 2020
+### 22 June 2020
 
 ---
 
@@ -875,17 +875,17 @@ cbind(st_test, abbs_test)
 ```
 
 ```
-##       st_test          abbs_test
-##  [1,] "New Jersey"     "NJ"     
-##  [2,] "South Carolina" "SC"     
-##  [3,] "Missouri"       "MO"     
-##  [4,] "Connecticut"    "CT"     
-##  [5,] "Nevada"         "NV"     
-##  [6,] "Vermont"        "VT"     
-##  [7,] "North Dakota"   "ND"     
-##  [8,] "North Dakota"   "ND"     
-##  [9,] "New Jersey"     "NJ"     
-## [10,] "Minnesota"      "MN"
+##       st_test         abbs_test
+##  [1,] "New Mexico"    "NM"     
+##  [2,] "Arkansas"      "AR"     
+##  [3,] "North Dakota"  "ND"     
+##  [4,] "New York"      "NY"     
+##  [5,] "Mississippi"   "MS"     
+##  [6,] "West Virginia" "WV"     
+##  [7,] "New Mexico"    "NM"     
+##  [8,] "North Dakota"  "ND"     
+##  [9,] "New Mexico"    "NM"     
+## [10,] "Maryland"      "MD"
 ```
 
 --
@@ -939,12 +939,12 @@ ct[sample(1:nrow(ct), 5), c("county", "state", "countyst")]
 ```
 
 ```
-##          county     state    countyst
-## 233708 Washburn Wisconsin Washburn WI
-## 227115   Brooks     Texas   Brooks TX
-## 57814       Ray  Missouri      Ray MO
-## 16299  Marshall   Indiana Marshall IN
-## 62619   Mahaska      Iowa  Mahaska IA
+##           county     state     countyst
+## 138868 Chattooga   Georgia Chattooga GA
+## 120475     Brown     Texas     Brown TX
+## 207259    Wabash  Illinois    Wabash IL
+## 21953     Pitkin  Colorado    Pitkin CO
+## 112291   Buffalo Wisconsin   Buffalo WI
 ```
 
 
