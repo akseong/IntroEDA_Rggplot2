@@ -30,7 +30,7 @@ Please follow the [Pre-Workshop Instructions](#Instructions) prior to coming to 
 - understanding the logic and basic syntax of ggplot2
 - overlaying geoms, visualizing strata for comparison
 
-[**Part 2: ggplot2: beyond basics with an example**](Session_2_Part2_ggplot2_beyondbasics.html)
+[**Part 2: ggplot2: beyond basics with an example**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_2_Part2_ggplot2_beyondbasics.html)
 - data manipulation and preparation
 - changing default options
 
