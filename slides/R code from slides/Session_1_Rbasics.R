@@ -1,3 +1,7 @@
+## Code extracted from .Rmd files for slides
+# some of this code may be for display purposes only 
+# (especially when you see echo=F / eval=F in the headers, or calls to kable)
+
 # #set scientific notation digit threshold
 # options(scipen=10)
 
