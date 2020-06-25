@@ -39,7 +39,7 @@ Please follow the [Pre-Workshop Instructions](#Instructions) prior to coming to 
 [**Exercise 2**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_2_EDA---Exercises.html) (to be completed during the break)
 
 ## Session3: 4pm-5pm
-[**Worked example: making a choropleth map in ggplot2**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_3_choropleth_map.R)
+[**Worked example: making a choropleth map in ggplot2**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_3_choropleth_map.R) (no slides - clicking the link downloads an .R script)
 
 
 
