@@ -12,34 +12,34 @@ Please follow the [Pre-Workshop Instructions](#Instructions) prior to coming to 
 
 # Syllabus
 ## Session 1: 10am-noon
-[**Part 1: R and RStudio basics:**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_1_Rbasics.html)
+[**Part 1: R and RStudio basics:**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_1_Rbasics.html) (html slides)
 - data types, subsetting, reading/writing data
 - constrol structures, functions
 
-[**Part 2: Basic data exploration and plotting in base R:**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_1_introEDA.html)
+[**Part 2: Basic data exploration and plotting in base R:**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_1_introEDA.html) (html slides)
 - summaries, tables
 - plotting different types of data
 
 
 ## Break: noon-1pm
-[**Exercise 1**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_1_Rbasics---Exercises.html) (to be completed during the break)
+[**Exercise 1**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_1_Rbasics---Exercises.html) (html doc; to be completed during the break)
 
 
 ## Session 2: 1pm-3pm
-[**Part 1: Introduction to ggplot2 and the "grammar of graphics"**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_2_Part1_ggplot2_intro.html)
+[**Part 1: Introduction to ggplot2 and the "grammar of graphics"**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_2_Part1_ggplot2_intro.html) (html slides)
 - understanding the logic and basic syntax of ggplot2
 - overlaying geoms, visualizing strata for comparison
 
-[**Part 2: ggplot2: beyond basics with an example**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_2_Part2_ggplot2_beyondbasics.html)
+[**Part 2: ggplot2: beyond basics with an example**](https://akseong.github.io/IntroEDA_Rggplot2/slides/Session_2_Part2_ggplot2_beyondbasics.html) (html slides)
 - data manipulation and preparation
 - changing default options
 
 
 ## Break: 3pm-4pm
-[**Exercise 2**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_2_EDA---Exercises.html) (to be completed during the break)
+[**Exercise 2**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_2_EDA---Exercises.html) (html doc; to be completed during the break)
 
 ## Session3: 4pm-5pm
-[**Worked example: making a choropleth map in ggplot2**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_3_choropleth_map.R) (no slides - clicking the link downloads an .R script)
+[**Worked example: making a choropleth map in ggplot2**](https://akseong.github.io/IntroEDA_Rggplot2/exercises/Session_3_choropleth_map.R) (download .R script)
 
 
 
