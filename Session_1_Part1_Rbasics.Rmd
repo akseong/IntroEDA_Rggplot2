@@ -1,17 +1,11 @@
 ---
 title: "Intro to R and Data Visualization with ggplot2: Session 1"
 subtitle: UCI Data Science Initiative
-params: 
-  reportdate: "`r format(Sys.time(), '%d %B %Y')`"  # to be replaced
-date: "`r format(Sys.time(), '%d %B %Y')`"
-# author: "Arnold Seong"
-# output: 
-#   slidy_presentation:
-#     highlight: pygments
+date: "22 June 2020`"
+author: "Arnold Seong"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    # css: xaringan-themer.css
     css:
       - default
       - default-fonts
@@ -21,34 +15,16 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-    # highlight: tango
-  # number_sections: true
-  
-# output:
-#   # pdf_document:
-#     # extra_dependencies: ["xcolor", "bm", "amssymb"]
-#     # highlight: tango
-#     # number_sections: true
-#   html_document:
-#     highlight: tango
-#   number_sections: true
-# smaller: yes
 ---
 
 
 
 ```{r setup, include=FALSE, message=F, echo=F, warning=F}
 library(xaringanthemer)
-# style_xaringan(
-  # code_inline_background_color = "#C0C0C0"
-#   text_font_family = "Droid Serif",
-#   text_font_url = "https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic",
-#   header_font_google = google_font("Yanone Kaffeesatz")
-# )
 style_mono_accent(base_color = "#3C989E")
 
-# knitr::opts_chunk$set(cache=FALSE, warning=FALSE, message=FALSE, echo=TRUE, warning=FALSE, error=FALSE)
-knitr::opts_chunk$set(cache=TRUE, warning=TRUE, message=TRUE, echo=TRUE, warning=TRUE, error=TRUE)
+knitr::opts_chunk$set(cache=FALSE, warning=FALSE, message=FALSE, echo=TRUE, warning=FALSE, error=TRUE)
+# knitr::opts_chunk$set(cache=TRUE, warning=TRUE, message=TRUE, echo=TRUE, warning=TRUE, error=TRUE)
 
 #set scientific notation digit threshold
 options(scipen=10)
@@ -80,8 +56,6 @@ pre {
 
 
 ---
-
-
 class: animated, fadeIn
 
 ## Workshop info
@@ -96,9 +70,6 @@ class: animated, fadeIn
     + Unmute yourself temporarily (hold `Spacebar`).
 
 
-<!-- + To access course materials please visit the [IDA-with-R website](https://ucidatascienceinitiative.github.io/IDA-with-R/). -->
-<!-- + **Please [download](https://github.com/UCIDataScienceInitiative/IDA-with-R/archive/master.zip) & unzip the Github repository!** -->
-
 
 
 
@@ -109,11 +80,9 @@ We will be using the New York Times' COVID-19 dataset throughout this workshop (
 
 --
 
-Some of you may be conducting research on COVID-19.  I think the risk is exceedingly small, but a warning about the potential for data spoilage is still in order, especially since this data is about a one-time, non-replicable event.
+Some of you may be conducting research on COVID-19.  
 
---
-
-+ Doing EDA on a dataset that you are also planning to use for inference / hypothesis tests *is* good practice, but can pose [**serious problems**](https://en.wikipedia.org/wiki/Data_dredging) if done improperly.
++ Doing EDA on a dataset that you are also planning to use for inference / hypothesis tests *is* good practice, but can pose [**serious problems**](https://en.wikipedia.org/wiki/Data_dredging) if done improperly.  --  
     + EDA affecting your hypotheses = very bad
 
 --
