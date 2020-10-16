@@ -23,7 +23,7 @@ output:
 library(xaringanthemer)
 style_mono_accent(base_color = "#3C989E")
 
-knitr::opts_chunk$set(cache=FALSE, warning=FALSE, message=FALSE, echo=TRUE, warning=FALSE, error=TRUE)
+knitr::opts_chunk$set(cache=TRUE, warning=FALSE, message=FALSE, echo=TRUE, warning=FALSE, error=TRUE)
 # knitr::opts_chunk$set(cache=TRUE, warning=TRUE, message=TRUE, echo=TRUE, warning=TRUE, error=TRUE)
 
 #set scientific notation digit threshold
