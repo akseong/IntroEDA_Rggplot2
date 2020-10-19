@@ -1,39 +1,33 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Intro to R and Data Visualization with ggplot2: Session 1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Arnold Seong" />
+    <meta name="date" content="2020-06-22" />
+    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Intro to R and Data Visualization with ggplot2: Session 1
+## UCI Data Science Initiative
+### Arnold Seong
+### 22 June 2020
+
 ---
-title: "Intro to R and Data Visualization with ggplot2: Session 1"
-subtitle: "UCI Data Science Initiative"
-date: "22 June 2020"
-author: "Arnold Seong"
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    css:
-      - default
-      - default-fonts
-      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
-      - xaringan-themer.css
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
----
 
-```{r setup, include=FALSE, message=F, echo=F, warning=F}
-library(xaringanthemer)
-style_mono_accent(base_color = "#3C989E")
 
-knitr::opts_chunk$set(cache=TRUE, warning=FALSE, message=FALSE, echo=TRUE, warning=FALSE, error=TRUE)
 
-#set scientific notation digit threshold
-options(scipen=10)
-
-#load libraries
-library(ggplot2)
-library(RColorBrewer)
-```
 
 layout: true
 
-<style>
+&lt;style&gt;
 pre {
     display: block;
     font-family: monospace;
@@ -47,7 +41,7 @@ pre {
 .remark-inline-code {
   background: #F5F5F5;
 }
-</style>
+&lt;/style&gt;
 
 
 
@@ -61,7 +55,7 @@ class: animated, fadeIn
     + Please set your zoom to mute your audio until you would like to speak
     + You can change your icon name by mousing over, clicking on the 3 dots
     
-+ Please ask questions during lectures & throughout the day!
++ Please ask questions during lectures &amp; throughout the day!
     + Use chat
     + Raise hand (`Alt+Y`)
     + Unmute yourself temporarily (hold `Spacebar`).
@@ -241,15 +235,15 @@ More on functions later, but for now:
 
 + R has 5 main atomic data types:
 
-  + Numeric:   &nbsp; `5`,    &nbsp; `1.3`, &nbsp; `0.004294`
+  + Numeric:   &amp;nbsp; `5`,    &amp;nbsp; `1.3`, &amp;nbsp; `0.004294`
   
-  + Character: &nbsp; `"a"`,  &nbsp; `"abracadabra"`, &nbsp; `"two"`
+  + Character: &amp;nbsp; `"a"`,  &amp;nbsp; `"abracadabra"`, &amp;nbsp; `"two"`
   
-  + Logical:   &nbsp; `TRUE`, &nbsp; `FALSE`
+  + Logical:   &amp;nbsp; `TRUE`, &amp;nbsp; `FALSE`
   
-  + Integer:   &nbsp; `2L`
+  + Integer:   &amp;nbsp; `2L`
   
-  + Complex:   &nbsp; `1+4i`
+  + Complex:   &amp;nbsp; `1+4i`
 
 
 
@@ -285,18 +279,33 @@ Everything in R is an object:
 + Each element is a single value (e.g. numeric or string value)
     + In general, vectors can only hold ONE data type
   
-```{r Vectors}
-num_vec <- c(2,3,4)  # <- is the assigning operator
+
+```r
+num_vec &lt;- c(2,3,4)  # &lt;- is the assigning operator
 num_vec
 ```
---
-```{r}
-length(num_vec)  # gives the number of elements in the vector
+
+```
+## [1] 2 3 4
 ```
 --
-```{r}
-x <- 2
+
+```r
+length(num_vec)  # gives the number of elements in the vector
+```
+
+```
+## [1] 3
+```
+--
+
+```r
+x &lt;- 2
 is.vector(x)  # single numbers are stored as vectors of length 1
+```
+
+```
+## [1] TRUE
 ```
 
 
@@ -307,24 +316,44 @@ is.vector(x)  # single numbers are stored as vectors of length 1
 ---
 ## Examples of Character and Logical Vectors
 
-```{r Character_and_Logical_Vector_Examples}
-log_vec <- c(TRUE, FALSE, FALSE, T, F)
+
+```r
+log_vec &lt;- c(TRUE, FALSE, FALSE, T, F)
 log_vec
 ```
+
+```
+## [1]  TRUE FALSE FALSE  TRUE FALSE
+```
 --
-```{r}
-char_vec <- c("red", "green", "blue")
+
+```r
+char_vec &lt;- c("red", "green", "blue")
 char_vec
 ```
---
-```{r}
-log_vec2 <- char_vec=="red"
-log_vec2
+
+```
+## [1] "red"   "green" "blue"
 ```
 --
-```{r}
-char_vec2 <- c("green", "red", "blue")
+
+```r
+log_vec2 &lt;- char_vec=="red"
+log_vec2
+```
+
+```
+## [1]  TRUE FALSE FALSE
+```
+--
+
+```r
+char_vec2 &lt;- c("green", "red", "blue")
 char_vec2 == char_vec
+```
+
+```
+## [1] FALSE FALSE  TRUE
 ```
 
 
@@ -340,9 +369,14 @@ In the previous slide, you saw two code chunks using `==`
 --
 
 (Here is one of them again)
-```{r}
-log_vec2 <- char_vec=="red"
+
+```r
+log_vec2 &lt;- char_vec=="red"
 log_vec2
+```
+
+```
+## [1]  TRUE FALSE FALSE
 ```
 
 --
@@ -350,11 +384,11 @@ log_vec2
 
 The double-equals sign `==` is a logical operator.
 
-  - A single equals sign `=` works (mostly) the same as `<-` in R.  
+  - A single equals sign `=` works (mostly) the same as `&lt;-` in R.  
   
 --
 
-- `log_vec2 <- char_vec=="red"` asks R to evaluate whether the value stored in the variable `char_vec` is exactly equal to the string `"red"`.  
+- `log_vec2 &lt;- char_vec=="red"` asks R to evaluate whether the value stored in the variable `char_vec` is exactly equal to the string `"red"`.  
 
 --
 
@@ -371,26 +405,31 @@ Other logical operators:
 
 --
 
-- numerical comparisons: &nbsp; &nbsp; `>`, &nbsp; &nbsp; `>=`, &nbsp; &nbsp; `<`, &nbsp; &nbsp; `<=`
+- numerical comparisons: &amp;nbsp; &amp;nbsp; `&gt;`, &amp;nbsp; &amp;nbsp; `&gt;=`, &amp;nbsp; &amp;nbsp; `&lt;`, &amp;nbsp; &amp;nbsp; `&lt;=`
 
 --
 
-- equals, not equals: &nbsp; &nbsp; `==`, &nbsp; &nbsp; `!=`
+- equals, not equals: &amp;nbsp; &amp;nbsp; `==`, &amp;nbsp; &amp;nbsp; `!=`
 
 --
 
-- not, and, or (and/or), strictly or: &nbsp; &nbsp; `!`, &nbsp; &nbsp; `&`, &nbsp; &nbsp; `|` (pipe), &nbsp; &nbsp; `xor(x,y)`
+- not, and, or (and/or), strictly or: &amp;nbsp; &amp;nbsp; `!`, &amp;nbsp; &amp;nbsp; `&amp;`, &amp;nbsp; &amp;nbsp; `|` (pipe), &amp;nbsp; &amp;nbsp; `xor(x,y)`
 
 --
 
-#### &nbsp; 
+#### &amp;nbsp; 
 
 Each of these will perform element-wise operations on vectors:
 
-```{r}
-x <- 1:10
-y <- 10:1
-x > y
+
+```r
+x &lt;- 1:10
+y &lt;- 10:1
+x &gt; y
+```
+
+```
+##  [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
 ```
 
 
@@ -401,23 +440,35 @@ class: animated, fadeIn
 
 Other logical operators: 
 
-- numerical comparisons: &nbsp; &nbsp; `>`, &nbsp; &nbsp; `>=`, &nbsp; &nbsp; `<`, &nbsp; &nbsp; `<=`
+- numerical comparisons: &amp;nbsp; &amp;nbsp; `&gt;`, &amp;nbsp; &amp;nbsp; `&gt;=`, &amp;nbsp; &amp;nbsp; `&lt;`, &amp;nbsp; &amp;nbsp; `&lt;=`
 
-- equals, not equals: &nbsp; &nbsp; `==`, &nbsp; &nbsp; `!=`
+- equals, not equals: &amp;nbsp; &amp;nbsp; `==`, &amp;nbsp; &amp;nbsp; `!=`
 
-- not, and, or (and/or), strictly or: &nbsp; &nbsp; `!`, &nbsp; &nbsp; `&`, &nbsp; &nbsp; `|` (pipe), &nbsp; &nbsp; `xor(x,y)`
+- not, and, or (and/or), strictly or: &amp;nbsp; &amp;nbsp; `!`, &amp;nbsp; &amp;nbsp; `&amp;`, &amp;nbsp; &amp;nbsp; `|` (pipe), &amp;nbsp; &amp;nbsp; `xor(x,y)`
 
 --
 
-#### &nbsp; 
+#### &amp;nbsp; 
 
-The operators in the last bullet`!`, `&`, `|`, `xor(x,y)` take logical vectors as input:
+The operators in the last bullet`!`, `&amp;`, `|`, `xor(x,y)` take logical vectors as input:
 
-```{r}
+
+```r
 log_vec
+```
+
+```
+## [1]  TRUE FALSE FALSE  TRUE FALSE
+```
+
+```r
 !log_vec
 ```
 
+```
+## [1] FALSE  TRUE  TRUE FALSE  TRUE
+```
+
 
 
 
@@ -429,9 +480,14 @@ log_vec
 
 - If you create a vector with more than one type of data, R will automatically coerce it to a single type
 
-```{r data_type_coercion1}
-numchar_vec <- c(3.14, pi, "pi")
+
+```r
+numchar_vec &lt;- c(3.14, pi, "pi")
 numchar_vec                 
+```
+
+```
+## [1] "3.14"             "3.14159265358979" "pi"
 ```
 
 --
@@ -439,16 +495,26 @@ numchar_vec
 - Explicitly coerce objects from one type to another using `as()`
   - Be careful about warnings; always check it became what you wanted!
 
-```{r data_type_coercion2}
-num_vec <- 1:10
+
+```r
+num_vec &lt;- 1:10
 num_vec
 ```
 
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
 --
 
-```{r}
-was_num_vec <- as(num_vec, "character")
+
+```r
+was_num_vec &lt;- as(num_vec, "character")
 was_num_vec
+```
+
+```
+##  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"
 ```
 
 
@@ -458,9 +524,14 @@ was_num_vec
 
 - If you create a vector with more than one type of data, R will automatically coerce it to a single type
 
-```{r data_type_coercion1.1}
-numchar_vec <- c(3.14, pi, "pi")
+
+```r
+numchar_vec &lt;- c(3.14, pi, "pi")
 numchar_vec                 
+```
+
+```
+## [1] "3.14"             "3.14159265358979" "pi"
 ```
 
 
@@ -469,9 +540,21 @@ numchar_vec
 
 --
 
-```{r, error=TRUE}
+
+```r
 num_vec + 1
+```
+
+```
+##  [1]  2  3  4  5  6  7  8  9 10 11
+```
+
+```r
 was_num_vec + 1
+```
+
+```
+## Error in was_num_vec + 1: non-numeric argument to binary operator
 ```
 
 
@@ -502,22 +585,33 @@ was_num_vec + 1
 ## Factors: example
 - Consider a vector `sex` representing males as 0 and females as 1: 
     
-```{r factors1}
-sex <- rep(c(0,1), times = 4)
+
+```r
+sex &lt;- rep(c(0,1), times = 4)
 sex
+```
+
+```
+## [1] 0 1 0 1 0 1 0 1
 ```
 
 --
 - **Will anyone else know what this means?!**
 
 --
-#### &nbsp;
+#### &amp;nbsp;
 - Instead, let's recode this as a factor with clear labels:
 
-```{r factors2}
-sex2 <- factor(sex, levels=c(0,1),  # original values
+
+```r
+sex2 &lt;- factor(sex, levels=c(0,1),  # original values
               labels=c("Male", "Female")) # new values
 sex2
+```
+
+```
+## [1] Male   Female Male   Female Male   Female Male   Female
+## Levels: Male Female
 ```
 
 
@@ -529,17 +623,30 @@ sex2
 
 + Nice for inconsistent data
 
-```{r}
-sex <- factor(c("Male", "Female", "M", "F", "Dude", "F", "Male", "Dudette"))
+
+```r
+sex &lt;- factor(c("Male", "Female", "M", "F", "Dude", "F", "Male", "Dudette"))
 sex
+```
+
+```
+## [1] Male    Female  M       F       Dude    F       Male   
+## [8] Dudette
+## Levels: Dude Dudette F Female M Male
 ```
 
 --
 
-```{r}
-sex <- factor(sex, levels=c("Dude", "Dudette", "F", "Female", "M", "Male"),
+
+```r
+sex &lt;- factor(sex, levels=c("Dude", "Dudette", "F", "Female", "M", "Male"),
               labels=c("Male", "Female", "Female", "Female", "Male", "Male"))
 sex
+```
+
+```
+## [1] Male   Female Male   Female Male   Female Male   Female
+## Levels: Male Female
 ```
 
 
@@ -553,22 +660,34 @@ sex
 ## Factors: level order 1
 - By default levels are ordered alphabetically:
 
-```{r factors_level_order1}
-sizes <- factor(c("small", "med", "large"))
+
+```r
+sizes &lt;- factor(c("small", "med", "large"))
 sizes      # levels ordered alphabetically
 ```
 
+```
+## [1] small med   large
+## Levels: large med small
+```
+
 --
-#### &nbsp;
+#### &amp;nbsp;
 - Levels can be specified explicitly to change order
 
-```{r factors_level_order2}
-sizes_ord <- factor(sizes, levels=c("small", "med", "large"))
+
+```r
+sizes_ord &lt;- factor(sizes, levels=c("small", "med", "large"))
 sizes_ord # same values, but levels are in the specified order
 ```
 
+```
+## [1] small med   large
+## Levels: small med large
+```
+
 ???
-<!-- comments -->
+&lt;!-- comments --&gt;
 spending time on this b/c factor order changes how ggplot2 displays legends
 
 
@@ -581,25 +700,41 @@ class: animated, fadeIn
 ## Factors: level order 2
 
 - As mentioned, levels have assigned numbers:
-```{r factors_level_order1rep}
-sizes <- factor(c("small", "med", "large"))
+
+```r
+sizes &lt;- factor(c("small", "med", "large"))
 sizes
 ```
 
+```
+## [1] small med   large
+## Levels: large med small
+```
+
 --
-#### &nbsp;
+#### &amp;nbsp;
 - Level order matters to assigned numbers:
 
 --
 
-```{r}
+
+```r
 as.numeric(sizes)  # levels ordered alphabetically (default)
+```
+
+```
+## [1] 3 2 1
 ```
 
 --
 
-```{r}
+
+```r
 as.numeric(sizes_ord)  # levels ordered by small to large sizes
+```
+
+```
+## [1] 1 2 3
 ```
 
 
@@ -612,18 +747,36 @@ class: animated, fadeIn
 ## Factors: level order 2
 
 - As mentioned, levels have assigned numbers:
-```{r factors_level_order1rep2}
-sizes <- factor(c("small", "med", "large"))
+
+```r
+sizes &lt;- factor(c("small", "med", "large"))
 sizes
 ```
 
+```
+## [1] small med   large
+## Levels: large med small
+```
+
 --
-#### &nbsp;
+#### &amp;nbsp;
 - But level number doesn't change the values in the vector
 
-```{r}
+
+```r
 as.numeric(sizes)==as.numeric(sizes_ord)
+```
+
+```
+## [1] FALSE  TRUE FALSE
+```
+
+```r
 sizes==sizes_ord
+```
+
+```
+## [1] TRUE TRUE TRUE
 ```
 
 
@@ -637,18 +790,36 @@ sizes==sizes_ord
 A **matrix** is a special case of a vector (matrices have 2 dimensions)
   + Like vectors, all elements of a matrix should be of the same data type
 
-```{r Matrices}
-myMat <- matrix(NA, nrow = 2, ncol = 4)
+
+```r
+myMat &lt;- matrix(NA, nrow = 2, ncol = 4)
 myMat
+```
+
+```
+##      [,1] [,2] [,3] [,4]
+## [1,]   NA   NA   NA   NA
+## [2,]   NA   NA   NA   NA
 ```
 
 --
 In addition to the `length()` function, we can use `dim()` with matrices:
 
-```{r}
-length(myMat)  # gives total # of elements (nrow times ncol)
-dim(myMat)  # gives a length 2 vector (nrow, ncol)
 
+```r
+length(myMat)  # gives total # of elements (nrow times ncol)
+```
+
+```
+## [1] 8
+```
+
+```r
+dim(myMat)  # gives a length 2 vector (nrow, ncol)
+```
+
+```
+## [1] 2 4
 ```
 
 
@@ -660,20 +831,31 @@ dim(myMat)  # gives a length 2 vector (nrow, ncol)
 ## Creating Matrices: using a vector
 We can fill a matrix using a vector (or function returning a vector)
 
-```{r fill_Matrix}
-evens <- seq(2, 16, 2)
+
+```r
+evens &lt;- seq(2, 16, 2)
 evens
 ```
 
+```
+## [1]  2  4  6  8 10 12 14 16
+```
 
-#### &nbsp;
+
+#### &amp;nbsp;
 --
 
 By default, matrices are filled by column
-```{r}
-myMat <- matrix(evens, nrow = 2, ncol = 4)
-myMat 
 
+```r
+myMat &lt;- matrix(evens, nrow = 2, ncol = 4)
+myMat 
+```
+
+```
+##      [,1] [,2] [,3] [,4]
+## [1,]    2    6   10   14
+## [2,]    4    8   12   16
 ```
 
 
@@ -686,20 +868,32 @@ class: animated, fadeIn
 ## Creating Matrices: using a vector
 We can fill a matrix using a vector (or function returning a vector)
 
-```{r fill_Matrix2}
-evens <- seq(2, 16, 2)
+
+```r
+evens &lt;- seq(2, 16, 2)
 evens
 ```
 
+```
+## [1]  2  4  6  8 10 12 14 16
+```
 
-#### &nbsp;
+
+#### &amp;nbsp;
 But we can also fill the matrix by row 
 
 
 
-```{r}
-myMat <- matrix(evens, nrow = 2, ncol = 4, byrow=TRUE)
+
+```r
+myMat &lt;- matrix(evens, nrow = 2, ncol = 4, byrow=TRUE)
 myMat
+```
+
+```
+##      [,1] [,2] [,3] [,4]
+## [1,]    2    4    6    8
+## [2,]   10   12   14   16
 ```
 
 
@@ -709,20 +903,30 @@ myMat
 ## Creating Matrices: `cbind()`
 `rbind()` and `cbind()` (row bind and column bind) combine vectors into a matrix 
 
-```{r echo=TRUE}
-vec1 <- 1:4
-vec2 <- 5:8
-vec3 <- 9:12
+
+```r
+vec1 &lt;- 1:4
+vec2 &lt;- 5:8
+vec3 &lt;- 9:12
 ```
 
 --
-#### &nbsp;
+#### &amp;nbsp;
 
 `cbind()` example:
 
-```{r}
-colMat <- cbind(vec1, vec2, vec3)
+
+```r
+colMat &lt;- cbind(vec1, vec2, vec3)
 colMat
+```
+
+```
+##      vec1 vec2 vec3
+## [1,]    1    5    9
+## [2,]    2    6   10
+## [3,]    3    7   11
+## [4,]    4    8   12
 ```
 
 --
@@ -739,20 +943,29 @@ class: animated, fadeIn
 
 `rbind()` and `cbind()` (row bind and column bind) combine vectors into a matrix 
 
-```{r echo=TRUE}
-vec1 <- 1:4
-vec2 <- 5:8
-vec3 <- 9:12
+
+```r
+vec1 &lt;- 1:4
+vec2 &lt;- 5:8
+vec3 &lt;- 9:12
 ```
 
 --
-#### &nbsp;
+#### &amp;nbsp;
 
 `rbind()` example:
 
-```{r echo=TRUE}
-rowMat <- rbind(vec1, vec2, vec3)
+
+```r
+rowMat &lt;- rbind(vec1, vec2, vec3)
 rowMat
+```
+
+```
+##      [,1] [,2] [,3] [,4]
+## vec1    1    2    3    4
+## vec2    5    6    7    8
+## vec3    9   10   11   12
 ```
 
 --
@@ -776,9 +989,17 @@ Matrices are 2-dimensional **arrays**.
 
 Here is one slice of a 3-dimensional array:
 
-```{r}
-myArr <- array(1:5, dim=c(3, 4, 5))  # something fishy here?
+
+```r
+myArr &lt;- array(1:5, dim=c(3, 4, 5))  # something fishy here?
 myArr[, , 1]
+```
+
+```
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    4    2    5
+## [2,]    2    5    3    1
+## [3,]    3    1    4    2
 ```
 
 --
@@ -797,11 +1018,31 @@ Providing names for the dimensions of an array -- use `dimnames()` -- will help 
 ## Lists
 Unlike vectors, matrices, or arrays, **lists** can contain multiple data types and data structures, and each element in a list can be of different length/dimension.
 
-```{r}
-myList <- list("sex"=sex, 
+
+```r
+myList &lt;- list("sex"=sex, 
                "rowMat"=rowMat)
 length(myList)
+```
+
+```
+## [1] 2
+```
+
+```r
 myList
+```
+
+```
+## $sex
+## [1] Male   Female Male   Female Male   Female Male   Female
+## Levels: Male Female
+## 
+## $rowMat
+##      [,1] [,2] [,3] [,4]
+## vec1    1    2    3    4
+## vec2    5    6    7    8
+## vec3    9   10   11   12
 ```
 
 
@@ -818,11 +1059,16 @@ There are some special values in R:
   + `Inf`: infinity
   + `NaN`: "Not a number"
   
-```{r echo=TRUE}
-a <- Inf
-b <- 0
-rslt <- c(b/a, a/a, 1/b)
+
+```r
+a &lt;- Inf
+b &lt;- 0
+rslt &lt;- c(b/a, a/a, 1/b)
 rslt
+```
+
+```
+## [1]   0 NaN Inf
 ```
 
 
@@ -835,12 +1081,23 @@ rslt
     + `NaN`: stands for "Not a Number" and is a missing value produced by numerical computation
     + `NA`: stands for "Not Available" and is used when a value is missing
     
-```{r echo=TRUE}
-a <- c(1,2)
-a[3]
 
-b <- 0/0
+```r
+a &lt;- c(1,2)
+a[3]
+```
+
+```
+## [1] NA
+```
+
+```r
+b &lt;- 0/0
 b
+```
+
+```
+## [1] NaN
 ```
 
 
@@ -856,17 +1113,27 @@ b
 Careful:  
 + `NaN` is considered to be `NA` 
 
-```{r, echo=TRUE}
-NAvec <- c(NA, NaN)
+
+```r
+NAvec &lt;- c(NA, NaN)
 is.na(NAvec)
+```
+
+```
+## [1] TRUE TRUE
 ```
 
 --
 
 + but the reverse is NOT true
 
-```{r, echo=TRUE}
+
+```r
 is.nan(NAvec)
+```
+
+```
+## [1] FALSE  TRUE
 ```
 
 
@@ -884,11 +1151,24 @@ Data frames are uniquely useful objects for data analysis!
 
 --
 
-```{r}
-female <- rep(c(0,1), times = 4)
-height <- sample(62:70, length(female))
-df <- data.frame(female, sex, height)
+
+```r
+female &lt;- rep(c(0,1), times = 4)
+height &lt;- sample(62:70, length(female))
+df &lt;- data.frame(female, sex, height)
 df
+```
+
+```
+##   female    sex height
+## 1      0   Male     66
+## 2      1 Female     69
+## 3      0   Male     63
+## 4      1 Female     67
+## 5      0   Male     62
+## 6      1 Female     68
+## 7      0   Male     64
+## 8      1 Female     70
 ```
 
 --
@@ -936,7 +1216,7 @@ Sometimes the hardest part of reading data into R is pointing R to the data.
 + Then, in R:  
     + Use `setwd("path_to_myproj/myproj")` to set your working directory to that folder
     + Alternatively, use RStudio's top banner menu: 
-        + Session $\rightarrow$ Set Working Directory $\rightarrow$ Source File Location
+        + Session `\(\rightarrow\)` Set Working Directory `\(\rightarrow\)` Source File Location
     + Then use `read.csv("data/data_file.csv")`
     
 --
@@ -956,19 +1236,20 @@ Today we will be using the New York Times' Covid-19 dataset at [https://github.c
 
 The original dataset contains the following variables:
 
-+ `date`:   &nbsp;       date of observation
-+ `county`: &nbsp;       county
-+ `state`:  &nbsp;       state
-+ `fips`:   &nbsp;       Federal Information Processing Standards codes (unique identifiers for counties)
-+ `cases`:  &nbsp;       cumulative cases in county on given date
-+ `deaths`: &nbsp;       cumulative deaths
++ `date`:   &amp;nbsp;       date of observation
++ `county`: &amp;nbsp;       county
++ `state`:  &amp;nbsp;       state
++ `fips`:   &amp;nbsp;       Federal Information Processing Standards codes (unique identifiers for counties)
++ `cases`:  &amp;nbsp;       cumulative cases in county on given date
++ `deaths`: &amp;nbsp;       cumulative deaths
 
 --
 
 Let's load the data.
 
-```{r load_C19_data}
-ct <- read.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")
+
+```r
+ct &lt;- read.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")
 ```
 
 
@@ -983,8 +1264,19 @@ Now that we have a data frame loaded, let's take a quick look at the 'head' of t
 
 --
 
-```{r}
+
+```r
 head(ct)
+```
+
+```
+##         date    county      state  fips cases deaths
+## 1 2020-01-21 Snohomish Washington 53061     1      0
+## 2 2020-01-22 Snohomish Washington 53061     1      0
+## 3 2020-01-23 Snohomish Washington 53061     1      0
+## 4 2020-01-24      Cook   Illinois 17031     1      0
+## 5 2020-01-24 Snohomish Washington 53061     1      0
+## 6 2020-01-25    Orange California  6059     1      0
 ```
 
 --
@@ -1000,8 +1292,18 @@ There's also a `tail()` function.
 
 --
 
-```{r}
+
+```r
 tail(ct, 5)  # specify just the last 5 rows
+```
+
+```
+##              date     county   state  fips cases deaths
+## 644674 2020-10-18 Sweetwater Wyoming 56037   415      2
+## 644675 2020-10-18      Teton Wyoming 56039   700      1
+## 644676 2020-10-18      Uinta Wyoming 56041   401      2
+## 644677 2020-10-18   Washakie Wyoming 56043   133      7
+## 644678 2020-10-18     Weston Wyoming 56045    93      0
 ```
 
 --
@@ -1031,8 +1333,18 @@ class: animated, fadeIn
 ## NYTimes Covid-19 data: tail
 There's also a `tail()` function.
 
-```{r}
+
+```r
 tail(ct, 5)  # specify just the last 5 rows
+```
+
+```
+##              date     county   state  fips cases deaths
+## 644674 2020-10-18 Sweetwater Wyoming 56037   415      2
+## 644675 2020-10-18      Teton Wyoming 56039   700      1
+## 644676 2020-10-18      Uinta Wyoming 56041   401      2
+## 644677 2020-10-18   Washakie Wyoming 56043   133      7
+## 644678 2020-10-18     Weston Wyoming 56045    93      0
 ```
 
 After looking at the head and tail, 
@@ -1065,7 +1377,7 @@ Two main subsetting operators:
 
   - We use `$` when selecting an attribute by name
 
-#### &nbsp;
+#### &amp;nbsp;
 
 --
 
@@ -1073,7 +1385,7 @@ Two main subsetting operators:
 
 - `$` allows us to select only one
 
-#### &nbsp;
+#### &amp;nbsp;
 
 --
 
@@ -1087,33 +1399,37 @@ Two main subsetting operators:
 ---
 ## Subsetting Vectors
 
-```{r, eval=FALSE}
-vec <- 1:10    # integers from 1 to 10
-vec <- vec*10  # multiply each element in vec by 10
+
+```r
+vec &lt;- 1:10    # integers from 1 to 10
+vec &lt;- vec*10  # multiply each element in vec by 10
 vec[3]         # predict output
 ```
 --
-```{r, echo=FALSE}
-vec <- 1:10
-vec <- vec*10
-vec[3] 
+
+```
+## [1] 30
 ```
 --
 Remember that single brackets allow us to select more than one element of an object:
-```{r, eval=FALSE}
+
+```r
 vec[1:3]        # predict output
 ```
 --
-```{r, echo=FALSE}
-vec[1:3]
+
+```
+## [1] 10 20 30
 ```
 --
-```{r, eval=FALSE}
+
+```r
 vec[c(2,4,6)]   # predict output
 ```
 --
-```{r, echo=FALSE}
-vec[c(2,4,6)]
+
+```
+## [1] 20 40 60
 ```
 
 
@@ -1132,14 +1448,26 @@ We also use the single square brackets to subset data frames (2 dimensions!)
 
 --
 
-```{r}
+
+```r
 ct[1:2, ]  # get the first 2 rows
+```
+
+```
+##         date    county      state  fips cases deaths
+## 1 2020-01-21 Snohomish Washington 53061     1      0
+## 2 2020-01-22 Snohomish Washington 53061     1      0
 ```
 
 --
 
-```{r}
+
+```r
 ct[1, 2]   # get the element in the first row, second column
+```
+
+```
+## [1] "Snohomish"
 ```
 
 
@@ -1156,16 +1484,31 @@ ct[1, 2]   # get the element in the first row, second column
 
 The following are all equivalent (`fips` is the 4th column):
 --
-```{r}
+
+```r
 head(ct$fips)  # select the first 6 values of the second column
 ```
---
-```{r}
-ct$fips[1:6]
+
+```
+## [1] 53061 53061 53061 17031 53061  6059
 ```
 --
-```{r}
+
+```r
+ct$fips[1:6]
+```
+
+```
+## [1] 53061 53061 53061 17031 53061  6059
+```
+--
+
+```r
 ct[1:6, 4]
+```
+
+```
+## [1] 53061 53061 53061 17031 53061  6059
 ```
 
 
@@ -1195,12 +1538,14 @@ ct[1:6, 4]
 
 + Can be longer than the vector being subsetted if repeating elements (except logical index vector) 
 
-```{r, eval=F}
+
+```r
 vec[c(1, 1, 1)]  # predict output
 ```
 --
-```{r, echo=F}
-vec[c(1, 1, 1)]
+
+```
+## [1] 10 10 10
 ```
 
 
@@ -1213,18 +1558,40 @@ vec[c(1, 1, 1)]
     + Values corresponding to TRUE in the index vector are selected
 
 --
-```{r}
-geq10k <- ct$cases >= 10000  # T/F returned 
+
+```r
+geq10k &lt;- ct$cases &gt;= 10000  # T/F returned 
 length(geq10k)
 ```
---
-```{r}
-tail(geq10k)
-tail(ct$cases)
+
+```
+## [1] 644678
 ```
 --
-```{r}
+
+```r
+tail(geq10k)
+```
+
+```
+## [1] FALSE FALSE FALSE FALSE FALSE FALSE
+```
+
+```r
+tail(ct$cases)
+```
+
+```
+## [1] 142 415 700 401 133  93
+```
+--
+
+```r
 sum(geq10k) # Treats TRUE as 1 and FALSE as 0
+```
+
+```
+## [1] 14404
 ```
 
 
@@ -1235,19 +1602,99 @@ sum(geq10k) # Treats TRUE as 1 and FALSE as 0
 ---
 ## 1. Logical Index Vector, cont'd
 
-So we have `r sum(geq10k)` observations of cumulative case counts greater than 10,000
+So we have 14404 observations of cumulative case counts greater than 10,000
 
 --
 
-Since `r sum(geq10k)` entries may be too many to look at individually, we should figure out what we really want to know.
+Since 14404 entries may be too many to look at individually, we should figure out what we really want to know.
 
 --
 
-We might be interested in which counties these are, i.e. the unique counties marked as `cases >= 10000`
+We might be interested in which counties these are, i.e. the unique counties marked as `cases &gt;= 10000`
 
 --
-```{r}
+
+```r
 unique(ct$county[geq10k])
+```
+
+```
+##   [1] "New York City"        "Westchester"         
+##   [3] "Nassau"               "Suffolk"             
+##   [5] "Cook"                 "Wayne"               
+##   [7] "Bergen"               "Los Angeles"         
+##   [9] "Essex"                "Hudson"              
+##  [11] "Miami-Dade"           "Union"               
+##  [13] "Philadelphia"         "Middlesex"           
+##  [15] "Fairfield"            "Passaic"             
+##  [17] "Rockland"             "Prince George's"     
+##  [19] "New Haven"            "Orange"              
+##  [21] "Harris"               "Providence"          
+##  [23] "Worcester"            "Montgomery"          
+##  [25] "Fairfax"              "Hartford"            
+##  [27] "Dallas"               "Marion"              
+##  [29] "Maricopa"             "Oakland"             
+##  [31] "Riverside"            "Hennepin"            
+##  [33] "San Diego"            "Broward"             
+##  [35] "Palm Beach"           "Milwaukee"           
+##  [37] "Clark"                "District of Columbia"
+##  [39] "San Bernardino"       "Tarrant"             
+##  [41] "Salt Lake"            "Mecklenburg"         
+##  [43] "Bexar"                "Hillsborough"        
+##  [45] "King"                 "Shelby"              
+##  [47] "Davidson"             "Travis"              
+##  [49] "Franklin"             "Jefferson"           
+##  [51] "Lake"                 "Pima"                
+##  [53] "Duval"                "Gwinnett"            
+##  [55] "Pinellas"             "Fulton"              
+##  [57] "Lee"                  "El Paso"             
+##  [59] "Hidalgo"              "DuPage"              
+##  [61] "Cuyahoga"             "Ocean"               
+##  [63] "Fresno"               "Kern"                
+##  [65] "Polk"                 "Baltimore"           
+##  [67] "DeKalb"               "Charleston"          
+##  [69] "Alameda"              "San Joaquin"         
+##  [71] "Baltimore city"       "St. Louis"           
+##  [73] "Nueces"               "Yuma"                
+##  [75] "Cobb"                 "Orleans"             
+##  [77] "Norfolk"              "Monmouth"            
+##  [79] "Wake"                 "Yakima"              
+##  [81] "East Baton Rouge"     "Douglas"             
+##  [83] "Cameron"              "Greenville"          
+##  [85] "Sacramento"           "Santa Clara"         
+##  [87] "Macomb"               "Tulare"              
+##  [89] "Collier"              "Denver"              
+##  [91] "Oklahoma"             "Tulsa"               
+##  [93] "Mobile"               "Stanislaus"          
+##  [95] "Fort Bend"            "Contra Costa"        
+##  [97] "Kane"                 "Escambia"            
+##  [99] "Osceola"              "Imperial"            
+## [101] "Hamilton"             "Collin"              
+## [103] "Ada"                  "Will"                
+## [105] "Galveston"            "Prince William"      
+## [107] "Webb"                 "Manatee"             
+## [109] "Delaware"             "Utah"                
+## [111] "Ventura"              "Richland"            
+## [113] "Allegheny"            "Denton"              
+## [115] "Erie"                 "Pinal"               
+## [117] "San Francisco"        "Brazoria"            
+## [119] "Volusia"              "Kansas City"         
+## [121] "Ramsey"               "Lubbock"             
+## [123] "Honolulu"             "Horry"               
+## [125] "Johnson"              "Leon"                
+## [127] "New Castle"           "Knox"                
+## [129] "Bristol"              "Dane"                
+## [131] "Monterey"             "Anne Arundel"        
+## [133] "Kent"                 "Camden"              
+## [135] "San Mateo"            "Brown"               
+## [137] "Washoe"               "Washington"          
+## [139] "Adams"                "Plymouth"            
+## [141] "Pulaski"              "Arapahoe"            
+## [143] "Rutherford"           "Sedgwick"            
+## [145] "Brevard"              "Hall"                
+## [147] "Waukesha"             "Guilford"            
+## [149] "Pasco"                "Pierce"              
+## [151] "St. Charles"
 ```
 
 
@@ -1265,17 +1712,32 @@ unique(ct$county[geq10k])
 + We can use the function `which()` along with a logical test to create this index vector
 
 
-```{r}
-CA_geq5k <- which(ct$state=="California" 
-                 & ct$date=="2020-06-01"
-                 & ct$cases > 5000)
+
+```r
+CA_geq5k &lt;- which(ct$state=="California" 
+                 &amp; ct$date=="2020-06-01"
+                 &amp; ct$cases &gt; 5000)
 CA_geq5k
+```
+
+```
+## [1] 197046 197056 197059 197062 197063
 ```
 
 --
 
-```{r}
+
+```r
 ct[CA_geq5k, ]
+```
+
+```
+##              date         county      state fips cases deaths
+## 197046 2020-06-01    Los Angeles California 6037 55968   2384
+## 197056 2020-06-01         Orange California 6059  6532    147
+## 197059 2020-06-01      Riverside California 6065  7982    344
+## 197062 2020-06-01 San Bernardino California 6071  5355    204
+## 197063 2020-06-01      San Diego California 6073  7617    312
 ```
 
 
@@ -1291,8 +1753,18 @@ ct[CA_geq5k, ]
 .pull-left[
 
 + For example, we can use this to take a subset of the columns of the prestige data
-```{r}
+
+```r
 ct[1:5, c("county", "cases")]
+```
+
+```
+##      county cases
+## 1 Snohomish     1
+## 2 Snohomish     1
+## 3 Snohomish     1
+## 4      Cook     1
+## 5 Snohomish     1
 ```
 ]
 
@@ -1302,8 +1774,18 @@ ct[1:5, c("county", "cases")]
 .pull-right[
 
 + Same as subsetting by column number, but R looks up the column number for you
-```{r}
+
+```r
 ct[1:5, c(2,5)]
+```
+
+```
+##      county cases
+## 1 Snohomish     1
+## 2 Snohomish     1
+## 3 Snohomish     1
+## 4      Cook     1
+## 5 Snohomish     1
 ```
 ]
 
@@ -1321,13 +1803,24 @@ ct[1:5, c(2,5)]
 
 --
 
-```{r}
-june1_inds <- which(ct$date=="2020-06-01")
-sort_inds <- order(ct$cases[june1_inds], decreasing=FALSE)
+
+```r
+june1_inds &lt;- which(ct$date=="2020-06-01")
+sort_inds &lt;- order(ct$cases[june1_inds], decreasing=FALSE)
 ```
 --
-```{r}
+
+```r
 ct[sort_inds[1:5],]
+```
+
+```
+##            date    county          state  fips cases deaths
+## 954  2020-03-09   Chatham North Carolina 37037     1      0
+## 1180 2020-03-11 San Mateo     California  6081    15      0
+## 2734 2020-03-15 Sheboygan      Wisconsin 55117     3      0
+## 70   2020-02-04 Snohomish     Washington 53061     1      0
+## 71   2020-02-05  Maricopa        Arizona  4013     1      0
 ```
 --
 
@@ -1345,8 +1838,9 @@ Let's first understand how `order()` works.
 --
 
 - Consider a vector `x` as below
-```{r}
-x <- c(4, 2, 1, 3, 5)
+
+```r
+x &lt;- c(4, 2, 1, 3, 5)
 ```
 
 --
@@ -1355,10 +1849,15 @@ x <- c(4, 2, 1, 3, 5)
 
 --
 
-#### &nbsp;
+#### &amp;nbsp;
 
-```{r}
+
+```r
 order(x)
+```
+
+```
+## [1] 3 2 4 1 5
 ```
 
 --
@@ -1372,25 +1871,39 @@ order(x)
 ## Understanding the problem cont'd
 Back to our problem: We made `sort_inds` from the subsetted data ...
 
-```{r}
-june1_inds <- which(ct$date=="2020-06-01")
-sort_inds <- order(ct$cases[june1_inds], decreasing=FALSE)
+
+```r
+june1_inds &lt;- which(ct$date=="2020-06-01")
+sort_inds &lt;- order(ct$cases[june1_inds], decreasing=FALSE)
 ```
 --
 
 But then applied the order in `sort_inds` to the non-subsetted data.
-```{r eval=F}
+
+```r
 ct[sort_inds[1:5],]
 ```
 
 --
 
-&nbsp;
+&amp;nbsp;
 
 To see why that is a problem more clearly:
-```{r}
+
+```r
 length(sort_inds)
+```
+
+```
+## [1] 3073
+```
+
+```r
 nrow(ct)
+```
+
+```
+## [1] 644678
 ```
 
 
@@ -1399,27 +1912,35 @@ nrow(ct)
 ---
 ## Fixed:
 
-```{r, eval=F}
-june1_inds <- which(ct$date=="2020-06-01")
-ct_june1 <- ct[june1_inds, ]  # create new subsetted df
-sort_inds <- order(ct_june1$cases)
-ct_june1[sort_inds[1:5],]
 
+```r
+june1_inds &lt;- which(ct$date=="2020-06-01")
+ct_june1 &lt;- ct[june1_inds, ]  # create new subsetted df
+sort_inds &lt;- order(ct_june1$cases)
+ct_june1[sort_inds[1:5],]
 ```
 
 --
 
-```{r, echo=F}
-june1_inds <- which(ct$date=="2020-06-01")
-ct_june1 <- ct[june1_inds, ]  # create new subsetted df
-sort_inds <- order(ct_june1$cases)
-ct_june1[sort_inds[1:5],]
 
+```
+##              date                 county    state fips cases
+## 197804 2020-06-01                Unknown   Kansas   NA     0
+## 198030 2020-06-01                Unknown Maryland   NA     0
+## 199584 2020-06-01                Unknown     Utah   NA     0
+## 196920 2020-06-01    Bristol Bay Borough   Alaska 2060     1
+## 196921 2020-06-01 Dillingham Census Area   Alaska 2070     1
+##        deaths
+## 197804      5
+## 198030     46
+## 199584      4
+## 196920      0
+## 196921      0
 ```
 
 --
 
-#### &nbsp;
+#### &amp;nbsp;
 
 *Brief aside:* Anything concerning or weird here?
 
@@ -1435,15 +1956,16 @@ A few other ways of subsetting can be pretty handy!
 - `subset()`: more readable, but doesn't generate / save an index vector
 
 --
-```{r, eval=F}
+
+```r
 subset(ct, ct$state=="California" 
-           & ct$date=="2020-06-01"
-           & ct$cases > 5000)
+           &amp; ct$date=="2020-06-01"
+           &amp; ct$cases &gt; 5000)
 ```
 
 --
 
-&nbsp;
+&amp;nbsp;
 
 - `dplyr` library: 
   - major advantage: highly readable code
@@ -1451,11 +1973,12 @@ subset(ct, ct$state=="California"
   - also (not shown here) easy to perform operations on subgroups
   
 --
-```{r, eval=F}
+
+```r
 library(dplyr)
-ct %>% 
-  filter(date=="2020-06-01") %>%
-  arrange(cases, state, county) %>%
+ct %&gt;% 
+  filter(date=="2020-06-01") %&gt;%
+  arrange(cases, state, county) %&gt;%
   slice(1:5)
 ```
 
@@ -1470,8 +1993,9 @@ Before we move on, let's save our data.
 To save (multiple) R objects into a file easily imported back into R, use `save()`.  (I find it useful to include a string vector listing the contents)
 
 --
-```{r}
-contents <- c("ct", "ct_june1")
+
+```r
+contents &lt;- c("ct", "ct_june1")
 save(contents, ct, ct_june1, file="data/session1.Rdata")
 ```
 
@@ -1495,7 +2019,8 @@ There is also `save.image()` to save the entire workspace, but it is somewhat fr
 ## Saving data: to load back into R
 Then when you want to load this data later, use
 
-```{r, eval=F}
+
+```r
 load("data/session1.Rdata")
 ```
 
@@ -1508,8 +2033,13 @@ You might have forgotten what is in there!
 
 --
 
-```{r}
+
+```r
 contents
+```
+
+```
+## [1] "ct"       "ct_june1"
 ```
 
 
@@ -1521,7 +2051,8 @@ contents
 ## Saving data: to share
 To save a matrix or dataframe to be shared, `.csv` format is usually preferred.  
 
-```{r, eval=F}
+
+```r
 write.table(ct_june1,
             file = "data/ct_june1.csv",
             sep = ",",
@@ -1532,7 +2063,8 @@ write.table(ct_june1,
 --
 
 To load it later, just use
-```{r, eval=F}
+
+```r
 read.csv("data/ct_june1.csv")
 ```
 
@@ -1609,7 +2141,7 @@ class: inverse, animated, fadeIn
 There are two main ways to install a package in R:
 
 1. Installing from CRAN: install a package directly from the repository
-    + Using R studio: `Tools > Install Packages...`
+    + Using R studio: `Tools &gt; Install Packages...`
     + From R console: `install.packages("name_of_package")`
     
     
@@ -1627,7 +2159,8 @@ Once you install a package, you need to load it into R using the function `libra
 
 Let's install the package `RColorBrewer`, which provides preset color palettes for use in plotting, and load it (we'll use it later).
 
-```{r eval=FALSE}
+
+```r
 install.packages("RColorBrewer")  # put it in quotes!
 library(RColorBrewer)  # load it into your R workspace
 ```
@@ -1667,7 +2200,8 @@ Many others; this list changes quickly.
 - Consider the function `quantile()`
 - Type in `?quantile` to load the help file [(online version here)](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/quantile)
 
-```{r, eval=FALSE}
+
+```r
 ?quantile
 ```
 
@@ -1741,7 +2275,7 @@ Before we continue to writing our own functions, we need to cover control struct
 Control structures dictate the sequence in which lines of code are executed.  
 
 --
-#### &nbsp;
+#### &amp;nbsp;
 
 Most commonly we use `if` statements, and `for` and `while` loops.  
 
@@ -1751,7 +2285,8 @@ Most commonly we use `if` statements, and `for` and `while` loops.
 ---
 ## Control Structures: if
 
-```{r if_syntax_do_not_run, eval = F}
+
+```r
 if (condition){
   # do something
 } else if (condition2) {
@@ -1767,13 +2302,18 @@ if (condition){
 
 --
 
-```{r}
-x <- sample(1:5, size=1)
-if (x<3){
+
+```r
+x &lt;- sample(1:5, size=1)
+if (x&lt;3){
   print("less than 3")
 } else {
   print("greater than / equal to 3")
 }
+```
+
+```
+## [1] "greater than / equal to 3"
 ```
 
 
@@ -1782,7 +2322,8 @@ if (x<3){
 
 ---
 ## Control Structures: ifelse
-```{r ifelse_syntax_do_not_run, eval=F}
+
+```r
 ifelse(TF_vector, do_if_true, do_if_false)
 ```
 
@@ -1790,11 +2331,16 @@ ifelse(TF_vector, do_if_true, do_if_false)
 
 --
 
-#### &nbsp;
+#### &amp;nbsp;
 
-```{r}
-x <- 1:5
-ifelse(x<3, "small", "large")
+
+```r
+x &lt;- 1:5
+ifelse(x&lt;3, "small", "large")
+```
+
+```
+## [1] "small" "small" "large" "large" "large"
 ```
 
 
@@ -1804,7 +2350,8 @@ ifelse(x<3, "small", "large")
 ---
 ## Control Structures: while 
 
-```{r while_syntax_do_not_run, eval=FALSE}
+
+```r
 while (condition){
   # do this over and over
   # modify condition!
@@ -1816,12 +2363,20 @@ A `while` loop repeats itself until its condition becomes false.
 - make sure you have a way of exiting the loop!
 
 --
-```{r}
-x <- 1
-while (x < 5){
+
+```r
+x &lt;- 1
+while (x &lt; 5){
   print(x)
-  x <- x+1
+  x &lt;- x+1
 }
+```
+
+```
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
 ```
 
 
@@ -1830,7 +2385,8 @@ while (x < 5){
 ---
 ## Control Structures: for 
 
-```{r for_syntax_do_not_run, eval=FALSE}
+
+```r
 for (el in set){
   #do something depending on el
 }
@@ -1839,13 +2395,21 @@ for (el in set){
 A `for` loop does something for each element in a set.
 
 --
-#### &nbsp;
+#### &amp;nbsp;
 
-```{r}
-x <- c("a", "b", "c", "d")
+
+```r
+x &lt;- c("a", "b", "c", "d")
 for (let in x){
   print(let)
 }
+```
+
+```
+## [1] "a"
+## [1] "b"
+## [1] "c"
+## [1] "d"
 ```
 
 
@@ -1859,10 +2423,14 @@ For any marginally complex operation, using a set of indices is usually better:
 
 I've randomly sampled 25 letters with replacement and placed them in a 5x5 matrix below.
 
-```{r, echo=FALSE}
-letter_mat <- matrix(sample(letters, 25, replace=TRUE),
-            nrow=5)
-letter_mat
+
+```
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,] "x"  "c"  "t"  "m"  "r" 
+## [2,] "c"  "c"  "x"  "j"  "l" 
+## [3,] "e"  "g"  "j"  "p"  "i" 
+## [4,] "z"  "z"  "s"  "a"  "m" 
+## [5,] "g"  "m"  "x"  "w"  "a"
 ```
 
 --
@@ -1871,12 +2439,17 @@ Now let's take the elements directly above the diagonal (4 of them):
 
 --
 
-```{r}
-y <- rep(NA, 4)  # pre-populate vector y
+
+```r
+y &lt;- rep(NA, 4)  # pre-populate vector y
 for (i in 1:4){
-    y[i] <- letter_mat[i, i+1]
+    y[i] &lt;- letter_mat[i, i+1]
 }
 print(y)
+```
+
+```
+## [1] "c" "x" "p" "m"
 ```
 
 
@@ -1899,7 +2472,7 @@ Learning to use the `apply()` family is essential for heavy R users.
 
 --
 
-#### &nbsp;
+#### &amp;nbsp;
 
 We'll cover `apply()` and `lapply()` today.  But many others exist!  
   - `sapply()`, `mapply()`, `tapply()`, `rapply()`, and just `by`
@@ -1911,13 +2484,14 @@ We'll cover `apply()` and `lapply()` today.  But many others exist!
 ---
 ## apply()
 
-```{r apply_syntax_donoteval, eval=F}
+
+```r
 apply(mat, MARGIN, function(x) some_func(x, other_args))
 ```
 
 Use `apply()` to apply a function across a dimension of a matrix, array, or dataframe. 
 
-#### &nbsp;
+#### &amp;nbsp;
 
 Think of `apply()` as doing the following (assume `mat` is a 2D matrix):
 
@@ -1942,11 +2516,19 @@ Think of `apply()` as doing the following (assume `mat` is a 2D matrix):
 ## apply() example
 
 Generate a matrix to apply the `mean()` function to:
-```{r}
-mat <- rbind(rnorm(10), rnorm(10, 5), rnorm(10, -5, 2))
-dimnames(mat) <- list(paste0("row", 1:3), 
+
+```r
+mat &lt;- rbind(rnorm(10), rnorm(10, 5), rnorm(10, -5, 2))
+dimnames(mat) &lt;- list(paste0("row", 1:3), 
                       paste0("col", 1:10))
 round(mat,1) # for display on slide
+```
+
+```
+##      col1 col2 col3 col4 col5 col6 col7 col8 col9 col10
+## row1  0.8 -1.2 -1.1  1.4 -0.6 -0.2  1.2 -0.3  1.9  -1.0
+## row2  5.8  5.0  4.4  4.5  4.8  4.1  5.3  6.2  4.7   7.1
+## row3 -1.7 -6.0 -5.1 -3.0 -3.7 -6.7 -5.8 -5.7 -5.5  -6.0
 ```
 
 --
@@ -1962,24 +2544,28 @@ class: animated, fadeIn
 ## apply() example cont'd
 
 Generate a matrix to apply the `mean()` function to:
-```{r, eval=FALSE}
-mat <- rbind(rnorm(10), rnorm(10, 5), rnorm(10, -5, 2))
-dimnames(mat) <- list(paste0("row", 1:3), 
+
+```r
+mat &lt;- rbind(rnorm(10), rnorm(10, 5), rnorm(10, -5, 2))
+dimnames(mat) &lt;- list(paste0("row", 1:3), 
                       paste0("col", 1:10))
 round(mat,1) # for display on slide
 ```
 
-#### &nbsp;
+#### &amp;nbsp;
 
 Since `mean()` only requires 1 argument, we can simplify our `apply()` statement:
 
 --
-```{r, eval=F}
+
+```r
 apply(mat, 1, mean)
 ```
 --
-```{r, echo=F}
-apply(mat, 1, mean)
+
+```
+##        row1        row2        row3 
+##  0.09411398  5.17812417 -4.91654450
 ```
 
 
@@ -1993,9 +2579,10 @@ Let's see the syntax when we want to specify other arguments:
 
 Here is similar data (the only difference is 1000 columns instead of 10)
 
-```{r, results='hide'}
-mat <- rbind(rnorm(1000), rnorm(1000, 5), rnorm(1000, -5, 2))
-dimnames(mat) <- list(paste0("row", 1:3), 
+
+```r
+mat &lt;- rbind(rnorm(1000), rnorm(1000, 5), rnorm(1000, -5, 2))
+dimnames(mat) &lt;- list(paste0("row", 1:3), 
                       paste0("col", 1:1000))
 ```
 
@@ -2003,12 +2590,17 @@ We'll apply the `quantile()` function, but we'll specify that we want the .025, 
 
 
 --
-```{r, eval=F}
+
+```r
 apply(mat, 1, function(x) quantile(x, probs=c(.025, .5, .975)))
 ```
 --
-```{r, echo=F}
-apply(mat, 1, function(x) quantile(x, probs=c(.025, .5, .975)))
+
+```
+##              row1     row2      row3
+## 2.5%  -2.12694531 3.200499 -8.827524
+## 50%   -0.02031961 5.075538 -4.965022
+## 97.5%  1.75790640 7.137937 -1.234284
 ```
 
 
@@ -2071,9 +2663,10 @@ Functions have a few other advantages:
 ---
 ## Function syntax
 
-```{r}
-my_func <- function(arg1, arg2=1:4){  # declare function my_func
-  result <- sum(arg1) / sum(arg2)     # do stuff
+
+```r
+my_func &lt;- function(arg1, arg2=1:4){  # declare function my_func
+  result &lt;- sum(arg1) / sum(arg2)     # do stuff
   return(result) 
 }
 ```
@@ -2088,18 +2681,33 @@ A function in R performs a set of operations using arguments.
 
 --
 
-```{r}
+
+```r
 my_func(arg1=1:100)
 ```
 
---
-```{r, error=TRUE}
-result # does not exist outside of function
+```
+## [1] 505
 ```
 
 --
-```{r, error=TRUE}
+
+```r
+result # does not exist outside of function
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'result' not found
+```
+
+--
+
+```r
 arg1   # does not exist outside of function
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'arg1' not found
 ```
 
 
@@ -2109,9 +2717,10 @@ arg1   # does not exist outside of function
 class: animated, fadeIn
 ## Function syntax
 
-```{r}
-my_func <- function(arg1, arg2=1:4){  # declare function my_func
-  result <- sum(arg1) / sum(arg2)     # do stuff
+
+```r
+my_func &lt;- function(arg1, arg2=1:4){  # declare function my_func
+  result &lt;- sum(arg1) / sum(arg2)     # do stuff
   return(result) 
 }
 ```
@@ -2132,9 +2741,10 @@ A `function` in R performs a set of operations using arguments.
 class: animated, fadeIn
 ## Function syntax
 
-```{r}
-my_func <- function(arg1, arg2=1:4){  # declare function my_func
-  result <- sum(arg1) / sum(arg2)     # do stuff
+
+```r
+my_func &lt;- function(arg1, arg2=1:4){  # declare function my_func
+  result &lt;- sum(arg1) / sum(arg2)     # do stuff
   return(result) 
 }
 ```
@@ -2144,10 +2754,29 @@ A `function` in R performs a set of operations using arguments.
 --
 
 - your function will do the same thing each time you call it
-```{r}
+
+```r
 my_func(arg1=1:100)
+```
+
+```
+## [1] 505
+```
+
+```r
 my_func(arg1=1)
+```
+
+```
+## [1] 0.1
+```
+
+```r
 my_func(arg1=100:200, arg2=5:15)
+```
+
+```
+## [1] 137.7273
 ```
 
 
@@ -2178,17 +2807,26 @@ We'll be using the `date` column to check consecutive days.
 
 We could work on it as a factor, but base R includes a `Date` class which will make things a bit clearer and easier.
 
-```{r}
-ct$date <- as.Date(ct$date)
+
+```r
+ct$date &lt;- as.Date(ct$date)
 ```
 
 --
 
 And since we're planning to apply this by county, let's work on one sample county:
 
-```{r}
-dat <- subset(ct, fips==6059)
+
+```r
+dat &lt;- subset(ct, fips==6059)
 dat[1:3,]
+```
+
+```
+##          date county      state fips cases deaths
+## 6  2020-01-25 Orange California 6059     1      0
+## 11 2020-01-26 Orange California 6059     1      0
+## 16 2020-01-27 Orange California 6059     1      0
 ```
 
 
@@ -2199,21 +2837,37 @@ dat[1:3,]
 ## Writing your own functions: example (2)
 Now we can use the `diff()` function, which calculates the difference between consecutive elements in a vector. For example:
 
-```{r}
+
+```r
 diff(c(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55))
+```
+
+```
+##  [1]  1  0  1  1  2  3  5  8 13 21
 ```
 
 --
 
 Let's try it on our dates:
-```{r, eval=F}
+
+```r
 diff(dat$date)
 ```
 
 --
 
-```{r, echo=F}
-diff(dat$date)
+
+```
+## Time differences in days
+##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [31] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [61] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [91] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## [121] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## [151] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## [181] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## [211] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## [241] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ```
 
 
@@ -2231,8 +2885,9 @@ Cool!  Turns out `diff()` has a specific operation for objects of class `Date`.
 
   Let's make it a bit more interesting:
 
-```{r}
-dat <- dat[c(1:5, 10:15, 20:25), ]
+
+```r
+dat &lt;- dat[c(1:5, 10:15, 20:25), ]
 ```
 
 --
@@ -2242,9 +2897,14 @@ So there should be 2 jumps in date, with a total of 8 days missing.
 --
 
 Let's try `diff()` again:
-```{r}
-diff(dat$date)
 
+```r
+diff(dat$date)
+```
+
+```
+## Time differences in days
+##  [1] 1 1 1 1 5 1 1 1 1 1 5 1 1 1 1 1
 ```
 
 
@@ -2255,19 +2915,35 @@ diff(dat$date)
 ## Writing your own functions: example (4)
 Now we'll write code to see if every date is included by counting how many jumps there are and how many days are missing.
 
-```{r}
-daydiffs <- diff(dat$date)
+
+```r
+daydiffs &lt;- diff(dat$date)
 daydiffs
 ```
---
-```{r}
-n_jumps <- sum(daydiffs != 1)
-n_jumps
+
+```
+## Time differences in days
+##  [1] 1 1 1 1 5 1 1 1 1 1 5 1 1 1 1 1
 ```
 --
-```{r}
-total_missed <- sum(daydiffs-1) 
+
+```r
+n_jumps &lt;- sum(daydiffs != 1)
+n_jumps
+```
+
+```
+## [1] 2
+```
+--
+
+```r
+total_missed &lt;- sum(daydiffs-1) 
 total_missed
+```
+
+```
+## Time difference of 8 days
 ```
 
 Looks like it works!
@@ -2283,15 +2959,16 @@ Final step: wrap it into a function
 
 --
 
-```{r}
-days_missed <- function(date_vec){
-  daydiffs <- diff(date_vec) #changed dat$date to date_vec
-  n_jumps <- sum(daydiffs != 1)
-  total_missed <- sum(daydiffs-1)
+
+```r
+days_missed &lt;- function(date_vec){
+  daydiffs &lt;- diff(date_vec) #changed dat$date to date_vec
+  n_jumps &lt;- sum(daydiffs != 1)
+  total_missed &lt;- sum(daydiffs-1)
   
   # format the output
-  res <- c(n_jumps, total_missed)
-  names(res) <- c("jumps", "total")
+  res &lt;- c(n_jumps, total_missed)
+  names(res) &lt;- c("jumps", "total")
   
   return(res)
 }
@@ -2299,8 +2976,14 @@ days_missed <- function(date_vec){
 
 --
 
-```{r}
+
+```r
 days_missed(dat$date)
+```
+
+```
+## jumps total 
+##     2     8
 ```
 
 
@@ -2331,3 +3014,126 @@ In addition, anything by Hadley Wickham:
 
 ---
 ## End of Session 1 Part 1
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
