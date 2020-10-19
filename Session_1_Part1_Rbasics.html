@@ -371,12 +371,8 @@ In the previous slide, you saw two code chunks using `==`
 (Here is one of them again)
 
 ```r
-log_vec2 &lt;- char_vec=="red"
+log_vec2 &lt;- char_vec`==`"red"
 log_vec2
-```
-
-```
-## [1]  TRUE FALSE FALSE
 ```
 
 --
@@ -599,13 +595,14 @@ sex
 - **Will anyone else know what this means?!**
 
 --
-#### &amp;nbsp;
+
 - Instead, let's recode this as a factor with clear labels:
 
 
 ```r
-sex2 &lt;- factor(sex, levels=c(0,1),  # original values
-              labels=c("Male", "Female")) # new values
+sex2 &lt;- factor(sex, 
+               levels=c(0,1),  # original values
+               labels=c("Male", "Female")) # new values
 sex2
 ```
 
@@ -630,8 +627,7 @@ sex
 ```
 
 ```
-## [1] Male    Female  M       F       Dude    F       Male   
-## [8] Dudette
+## [1] Male    Female  M       F       Dude    F       Male    Dudette
 ## Levels: Dude Dudette F Female M Male
 ```
 
@@ -639,7 +635,8 @@ sex
 
 
 ```r
-sex &lt;- factor(sex, levels=c("Dude", "Dudette", "F", "Female", "M", "Male"),
+sex &lt;- factor(sex, 
+              levels=c("Dude", "Dudette", "F", "Female", "M", "Male"),
               labels=c("Male", "Female", "Female", "Female", "Male", "Male"))
 sex
 ```
@@ -1020,8 +1017,8 @@ Unlike vectors, matrices, or arrays, **lists** can contain multiple data types a
 
 
 ```r
-myList &lt;- list("sex"=sex, 
-               "rowMat"=rowMat)
+myList &lt;- list("sex"=sex,       # a vector
+               "rowMat"=rowMat) # a matrix
 length(myList)
 ```
 
@@ -1115,8 +1112,8 @@ Careful:
 
 
 ```r
-NAvec &lt;- c(NA, NaN)
-is.na(NAvec)
+na_vec &lt;- c(NA, NaN)
+is.na(na_vec)
 ```
 
 ```
@@ -1129,7 +1126,7 @@ is.na(NAvec)
 
 
 ```r
-is.nan(NAvec)
+is.nan(na_vec)
 ```
 
 ```
@@ -1154,21 +1151,21 @@ Data frames are uniquely useful objects for data analysis!
 
 ```r
 female &lt;- rep(c(0,1), times = 4)
-height &lt;- sample(62:70, length(female))
+height &lt;- sample(62:70, length(female), replace=TRUE)
 df &lt;- data.frame(female, sex, height)
 df
 ```
 
 ```
 ##   female    sex height
-## 1      0   Male     66
-## 2      1 Female     69
-## 3      0   Male     63
-## 4      1 Female     67
-## 5      0   Male     62
-## 6      1 Female     68
-## 7      0   Male     64
-## 8      1 Female     70
+## 1      0   Male     65
+## 2      1 Female     66
+## 3      0   Male     70
+## 4      1 Female     69
+## 5      0   Male     70
+## 6      1 Female     66
+## 7      0   Male     65
+## 8      1 Female     64
 ```
 
 --
@@ -1184,14 +1181,22 @@ Data frames combine features of lists and matrices
 
 Main functions for reading data into R:
 
+--
+
 1. `read.table()`, `read.csv()`: to read tabular data 
     + Type `?read.table` in your R console to see the important arguments in the function
     + `read.csv()` for comma separated value files 
         + Equivalent to `read.table()` with arguments `sep = ","` and `header = TRUE`
 
+--
+
 2. `readLines()`: to read lines of a text file
 
+--
+
 3. `source()`, `dget()`: to read R code
+
+--
 
 4. `load()`: to read saved workspaces and R data files (`.Rda`, `.Rdata`)
 
@@ -1230,24 +1235,46 @@ We will use data hosted online here (to get the most up-to-date data), but I sti
 ---
 ## Optional workshop item: R Projects
 
-Once you feel a bit more comfortable in R and RStudio, try starting your data analysis with a new **R project**:
+ 
+It's useful to know how to navigate file systems in R 
 
+--
+
+... but it can be a hassle.  
+
+--
+
+Once you feel a bit more comfortable in R and RStudio, try starting your data analysis with a new **R project**:  
 
 + in RStudio's banner menu, go to **File `\(\rightarrow\)` New Project**
+
 + follow the options from there (self-explanatory)
+
+
+
+
+
+---
+## Optional workshop item: R Projects cont'd
+
+We won't go into detail on R Projects here, but it has many advantages:
+
++ working directory is by default set to the home folder of the project
+
+  + send the whole project to collaborators easily (filepaths won't break!)
+
++ saves its own, separate R workspace (easy to pick right back up)
+
++ integration with Git and Github
 
 
 --
 
-We won't go into detail on R Projects here, but it is a useful feature of RStudio that, in general, behaves the way you want it to.  Main advantages:
-
-+ working directory automagically set to home folder of the project 
-+ integration with Git and Github
-+ easier to make workflows that others can reproduce
-+ *notes:* 
-  + you can try it out for the things we do in this workshop
-  + keep everything for your project in the home folder / subfolders
-  + just remember to start working on your project by clicking on the **.Rproj** file in your local home folder, or the projects dropdown in the upper right of the RStudio banner.
++ *quick tips:* 
+  + all files for the project should be in the home folder or subfolders
+  + pick up where you left off on your project by 
+     1. clicking on the **.Rproj** file in your local home folder
+     1. using the project dropdown in the upper right of the RStudio banner.
 
 
 
@@ -1439,7 +1466,7 @@ vec[1:3]        # predict output
 --
 
 ```
-## [1] 10 20 30
+## [1] 1 2 3
 ```
 --
 
@@ -1468,6 +1495,7 @@ We also use the single square brackets to subset data frames (2 dimensions!)
 
 - In the square brackets, the first position refers to the row(s) and the second position refers to the column(s)
 - i.e. `df[row_num, col_num]`
+
 
 --
 
@@ -1541,7 +1569,7 @@ ct[1:6, 4]
 
 ---
 ## Subsetting using Index Vectors
-+ Another way to select more than one element from an object (vector, matrix, list, dataframe) is by using index vectors
++ Another way to select more than one element from an object (vector, matrix, list, dataframe) is by using **index vectors**
 
 + We will cover three types of index vectors: 
 
@@ -1559,16 +1587,17 @@ ct[1:6, 4]
 
 --
 
-+ Can be longer than the vector being subsetted if repeating elements (except logical index vector) 
++ An index vector can be longer than the vector being subsetted if repeating elements
 
 
 ```r
+vac &lt;- 1:10
 vec[c(1, 1, 1)]  # predict output
 ```
 --
 
 ```
-## [1] 10 10 10
+## [1] 1 1 1
 ```
 
 
@@ -1578,19 +1607,31 @@ vec[c(1, 1, 1)]  # predict output
 ---
 ## 1. Logical Index Vector
 + A vector of `TRUE`/`FALSE` values of same length as the vector to be subsetted.
-    + Values corresponding to TRUE in the index vector are selected
 
 --
 
 ```r
-geq10k &lt;- ct$cases &gt;= 10000  # T/F returned 
+geq10k &lt;- ct$cases &gt; 10000  # T/F returned 
 length(geq10k)
 ```
 
 ```
 ## [1] 644678
 ```
+
+```r
+length(ct$cases)
+```
+
+```
+## [1] 644678
+```
 --
+
++ Values corresponding to TRUE in the index vector are selected
+
+--
+
 
 ```r
 tail(geq10k)
@@ -1607,15 +1648,38 @@ tail(ct$cases)
 ```
 ## [1] 142 415 700 401 133  93
 ```
+
+
+
+
+
+
+
+
+---
+## 1. Logical Index Vector, cont'd
++ A vector of `TRUE`/`FALSE` values of same length as the vector to be subsetted.
+
++ Values corresponding to TRUE in the index vector are selected
+
++ T/F can also be treated as 1/0
 --
 
+
 ```r
-sum(geq10k) # Treats TRUE as 1 and FALSE as 0
+sum(geq10k) # Treats TRUE as 1 and FALSE as 0 
 ```
 
 ```
-## [1] 14404
+## [1] 14403
 ```
+
+
+So we have 14403 **observations** of cumulative case counts greater than 10,000
+
+--
+
+Since 14403 entries may be too many to look at individually, we should figure out what we really want to know.
 
 
 
@@ -1625,98 +1689,67 @@ sum(geq10k) # Treats TRUE as 1 and FALSE as 0
 ---
 ## 1. Logical Index Vector, cont'd
 
-So we have 14404 observations of cumulative case counts greater than 10,000
+Remember that each observation is a single county *on a single day*.
+
+We might be interested in how many counties have case counts above 10000.  
 
 --
 
-Since 14404 entries may be too many to look at individually, we should figure out what we really want to know.
+We'll do this using the `unique()` function, which extracts only the first instance of a repeated value.
 
 --
 
-We might be interested in which counties these are, i.e. the unique counties marked as `cases &gt;= 10000`
+
+```r
+length(unique(ct$county[geq10k]))
+```
+
+```
+## [1] 151
+```
 
 --
+
+If we want to see the names of all the counties, we can (but this won't fit on a single slide):
+
+--
+
 
 ```r
 unique(ct$county[geq10k])
 ```
 
 ```
-##   [1] "New York City"        "Westchester"         
-##   [3] "Nassau"               "Suffolk"             
-##   [5] "Cook"                 "Wayne"               
-##   [7] "Bergen"               "Los Angeles"         
-##   [9] "Essex"                "Hudson"              
-##  [11] "Miami-Dade"           "Union"               
-##  [13] "Philadelphia"         "Middlesex"           
-##  [15] "Fairfield"            "Passaic"             
-##  [17] "Rockland"             "Prince George's"     
-##  [19] "New Haven"            "Orange"              
-##  [21] "Harris"               "Providence"          
-##  [23] "Worcester"            "Montgomery"          
-##  [25] "Fairfax"              "Hartford"            
-##  [27] "Dallas"               "Marion"              
-##  [29] "Maricopa"             "Oakland"             
-##  [31] "Riverside"            "Hennepin"            
-##  [33] "San Diego"            "Broward"             
-##  [35] "Palm Beach"           "Milwaukee"           
-##  [37] "Clark"                "District of Columbia"
-##  [39] "San Bernardino"       "Tarrant"             
-##  [41] "Salt Lake"            "Mecklenburg"         
-##  [43] "Bexar"                "Hillsborough"        
-##  [45] "King"                 "Shelby"              
-##  [47] "Davidson"             "Travis"              
-##  [49] "Franklin"             "Jefferson"           
-##  [51] "Lake"                 "Pima"                
-##  [53] "Duval"                "Gwinnett"            
-##  [55] "Pinellas"             "Fulton"              
-##  [57] "Lee"                  "El Paso"             
-##  [59] "Hidalgo"              "DuPage"              
-##  [61] "Cuyahoga"             "Ocean"               
-##  [63] "Fresno"               "Kern"                
-##  [65] "Polk"                 "Baltimore"           
-##  [67] "DeKalb"               "Charleston"          
-##  [69] "Alameda"              "San Joaquin"         
-##  [71] "Baltimore city"       "St. Louis"           
-##  [73] "Nueces"               "Yuma"                
-##  [75] "Cobb"                 "Orleans"             
-##  [77] "Norfolk"              "Monmouth"            
-##  [79] "Wake"                 "Yakima"              
-##  [81] "East Baton Rouge"     "Douglas"             
-##  [83] "Cameron"              "Greenville"          
-##  [85] "Sacramento"           "Santa Clara"         
-##  [87] "Macomb"               "Tulare"              
-##  [89] "Collier"              "Denver"              
-##  [91] "Oklahoma"             "Tulsa"               
-##  [93] "Mobile"               "Stanislaus"          
-##  [95] "Fort Bend"            "Contra Costa"        
-##  [97] "Kane"                 "Escambia"            
-##  [99] "Osceola"              "Imperial"            
-## [101] "Hamilton"             "Collin"              
-## [103] "Ada"                  "Will"                
-## [105] "Galveston"            "Prince William"      
-## [107] "Webb"                 "Manatee"             
-## [109] "Delaware"             "Utah"                
-## [111] "Ventura"              "Richland"            
-## [113] "Allegheny"            "Denton"              
-## [115] "Erie"                 "Pinal"               
-## [117] "San Francisco"        "Brazoria"            
-## [119] "Volusia"              "Kansas City"         
-## [121] "Ramsey"               "Lubbock"             
-## [123] "Honolulu"             "Horry"               
-## [125] "Johnson"              "Leon"                
-## [127] "New Castle"           "Knox"                
-## [129] "Bristol"              "Dane"                
-## [131] "Monterey"             "Anne Arundel"        
-## [133] "Kent"                 "Camden"              
-## [135] "San Mateo"            "Brown"               
-## [137] "Washoe"               "Washington"          
-## [139] "Adams"                "Plymouth"            
-## [141] "Pulaski"              "Arapahoe"            
-## [143] "Rutherford"           "Sedgwick"            
-## [145] "Brevard"              "Hall"                
-## [147] "Waukesha"             "Guilford"            
-## [149] "Pasco"                "Pierce"              
+##   [1] "New York City"        "Westchester"          "Nassau"               "Suffolk"              "Cook"                
+##   [6] "Wayne"                "Bergen"               "Los Angeles"          "Essex"                "Hudson"              
+##  [11] "Miami-Dade"           "Union"                "Philadelphia"         "Middlesex"            "Fairfield"           
+##  [16] "Passaic"              "Rockland"             "Prince George's"      "New Haven"            "Orange"              
+##  [21] "Harris"               "Providence"           "Worcester"            "Montgomery"           "Fairfax"             
+##  [26] "Hartford"             "Dallas"               "Marion"               "Maricopa"             "Oakland"             
+##  [31] "Riverside"            "Hennepin"             "San Diego"            "Broward"              "Palm Beach"          
+##  [36] "Milwaukee"            "Clark"                "District of Columbia" "San Bernardino"       "Tarrant"             
+##  [41] "Salt Lake"            "Mecklenburg"          "Bexar"                "Hillsborough"         "King"                
+##  [46] "Shelby"               "Davidson"             "Travis"               "Franklin"             "Jefferson"           
+##  [51] "Lake"                 "Pima"                 "Duval"                "Gwinnett"             "Pinellas"            
+##  [56] "Fulton"               "Lee"                  "El Paso"              "Hidalgo"              "DuPage"              
+##  [61] "Cuyahoga"             "Ocean"                "Fresno"               "Kern"                 "Polk"                
+##  [66] "Baltimore"            "DeKalb"               "Charleston"           "Alameda"              "San Joaquin"         
+##  [71] "Baltimore city"       "St. Louis"            "Nueces"               "Yuma"                 "Cobb"                
+##  [76] "Orleans"              "Norfolk"              "Monmouth"             "Wake"                 "Yakima"              
+##  [81] "East Baton Rouge"     "Douglas"              "Cameron"              "Greenville"           "Sacramento"          
+##  [86] "Santa Clara"          "Macomb"               "Tulare"               "Collier"              "Denver"              
+##  [91] "Oklahoma"             "Tulsa"                "Mobile"               "Stanislaus"           "Fort Bend"           
+##  [96] "Contra Costa"         "Kane"                 "Escambia"             "Osceola"              "Imperial"            
+## [101] "Hamilton"             "Collin"               "Ada"                  "Will"                 "Galveston"           
+## [106] "Prince William"       "Webb"                 "Manatee"              "Delaware"             "Utah"                
+## [111] "Ventura"              "Richland"             "Allegheny"            "Denton"               "Erie"                
+## [116] "Pinal"                "San Francisco"        "Brazoria"             "Volusia"              "Kansas City"         
+## [121] "Ramsey"               "Lubbock"              "Honolulu"             "Horry"                "Johnson"             
+## [126] "Leon"                 "New Castle"           "Knox"                 "Bristol"              "Dane"                
+## [131] "Monterey"             "Anne Arundel"         "Kent"                 "Camden"               "San Mateo"           
+## [136] "Brown"                "Washoe"               "Washington"           "Adams"                "Plymouth"            
+## [141] "Pulaski"              "Arapahoe"             "Rutherford"           "Sedgwick"             "Brevard"             
+## [146] "Hall"                 "Waukesha"             "Guilford"             "Pasco"                "Pierce"              
 ## [151] "St. Charles"
 ```
 
@@ -1731,20 +1764,15 @@ unique(ct$county[geq10k])
 
 ---
 ## 2. Index Vector of Positive Integers
-+ A vector of positive integers identifying elements you want to subset
-+ We can use the function `which()` along with a logical test to create this index vector
-
++ A vector of positive integers identifying the position of the elements you want to subset
++ We can use the function `which()` along with logical conditions to create this index vector
+  + combine logical conditions using `&amp;` for "and", or `|` for "or"
 
 
 ```r
 CA_geq5k &lt;- which(ct$state=="California" 
-                 &amp; ct$date=="2020-06-01"
-                 &amp; ct$cases &gt; 5000)
-CA_geq5k
-```
-
-```
-## [1] 197046 197056 197059 197062 197063
+                  &amp; ct$date=="2020-06-01"
+                  &amp; ct$cases &gt; 5000)
 ```
 
 --
@@ -1775,7 +1803,7 @@ ct[CA_geq5k, ]
 
 .pull-left[
 
-+ For example, we can use this to take a subset of the columns of the prestige data
++ For example, we can use this to take a subset of the columns of the NYTimes data
 
 ```r
 ct[1:5, c("county", "cases")]
@@ -1847,7 +1875,7 @@ ct[sort_inds[1:5],]
 ```
 --
 
-What went wrong? 
+**That doesn't look right**.  What went wrong? 
 
 
 
@@ -1868,11 +1896,11 @@ x &lt;- c(4, 2, 1, 3, 5)
 
 --
 
-- If you were to place the elements of `x` in ascending order, which element in `x` would come first? second?
+- If you were to place the elements of `x` in ascending order, the 3rd element in `x` would come first, then the 2nd, then the 4th, 1st, and 5th
 
 --
 
-#### &amp;nbsp;
+- This is what `order()` gives you:
 
 
 ```r
@@ -1892,26 +1920,26 @@ order(x)
 
 ---
 ## Understanding the problem cont'd
-Back to our problem: We made `sort_inds` from the subsetted data ...
+Back to our problem: We made `sort_inds` from a **subset** of the data (only June 1st)...
 
 
 ```r
 june1_inds &lt;- which(ct$date=="2020-06-01")
-sort_inds &lt;- order(ct$cases[june1_inds], decreasing=FALSE)
+sort_inds &lt;- order(`ct$cases[june1_inds]`, decreasing=FALSE)
 ```
 --
 
-But then applied the order in `sort_inds` to the non-subsetted data.
+But then applied the order in `sort_inds` to the **non-subsetted** data.
 
 ```r
-ct[sort_inds[1:5],]
+`ct[sort_inds[1:5],]`
 ```
 
 --
 
 &amp;nbsp;
 
-To see why that is a problem more clearly:
+We can also see the mismatch in lengths:
 
 ```r
 length(sort_inds)
@@ -1947,25 +1975,23 @@ ct_june1[sort_inds[1:5],]
 
 
 ```
-##              date                 county    state fips cases
-## 197804 2020-06-01                Unknown   Kansas   NA     0
-## 198030 2020-06-01                Unknown Maryland   NA     0
-## 199584 2020-06-01                Unknown     Utah   NA     0
-## 196920 2020-06-01    Bristol Bay Borough   Alaska 2060     1
-## 196921 2020-06-01 Dillingham Census Area   Alaska 2070     1
-##        deaths
-## 197804      5
-## 198030     46
-## 199584      4
-## 196920      0
-## 196921      0
+##              date                 county    state fips cases deaths
+## 197804 2020-06-01                Unknown   Kansas   NA     0      5
+## 198030 2020-06-01                Unknown Maryland   NA     0     46
+## 199584 2020-06-01                Unknown     Utah   NA     0      4
+## 196920 2020-06-01    Bristol Bay Borough   Alaska 2060     1      0
+## 196921 2020-06-01 Dillingham Census Area   Alaska 2070     1      0
 ```
 
 --
 
 #### &amp;nbsp;
 
-*Brief aside:* Anything concerning or weird here?
+*Brief aside:* Anything concerning here? 
+
+--
+
+(you'll address it in the between-session "homework")
 
 
 
@@ -2013,7 +2039,11 @@ ct %&gt;%
 
 Before we move on, let's save our data.
 
-To save (multiple) R objects into a file easily imported back into R, use `save()`.  (I find it useful to include a string vector listing the contents)
+To save (multiple) R objects into a file easily imported back into R, use `save()`.  
+
+--
+
++ (I find it useful to include a vector listing the contents of the file)
 
 --
 
@@ -2028,7 +2058,15 @@ save(contents, ct, ct_june1, file="data/session1.Rdata")
 
 --
 
-- In addition to `getwd()`, `setwd()`, and the RStudio dropdown menus, you can also use the `here` package (not covered, um, here...)
++ In addition to `getwd()`, `setwd()`, and the RStudio dropdown menus, you can also use the `here` package (not covered, 
+--
+um, 
+--
+here...)
+
+--
+
++ using an R project also mitigates this worry for the most part
 
 --
 
@@ -2052,7 +2090,7 @@ load("data/session1.Rdata")
 You might have forgotten what is in there!  
 
 - If starting from an empty workspace, just look at the Environment pane in RStudio
-- Otherwise, that `contents` vector will be handy.
+- If your Environment pane is already full of stuff, that `contents` vector will be quite handy.
 
 --
 
@@ -2154,6 +2192,8 @@ class: inverse, animated, fadeIn
   - *Source*: the original version of a package with human-readable text and code
   - *Base packages*: part of the R source tree, maintained by R Core
 
+--
+
 - For more info on how R packages are developed, please read [Creating R Packages: A Tutorial](http://cran.r-project.org/doc/contrib/Leisch-CreatingPackages.pdf) by Friedrich Leisch.
 
 - Go to https://cran.r-project.org/web/packages/ for a list of all available packages.
@@ -2163,12 +2203,17 @@ class: inverse, animated, fadeIn
 ## Installing Packages
 There are two main ways to install a package in R:
 
+--
+
 1. Installing from CRAN: install a package directly from the repository
-    + Using R studio: `Tools &gt; Install Packages...`
-    + From R console: `install.packages("name_of_package")`
+
+  + Using R studio: `Tools &gt; Install Packages...`
+  + From R console: `install.packages("name_of_package")`
     
-    
+--
+
 2. Installing from source: first download the add-on R package and then type the following in your console:
+
     + `install.packages("path_to_file", repos = NULL, type = "source")` 
 
 Once you install a package, you need to load it into R using the function `library()`
@@ -2195,21 +2240,29 @@ library(RColorBrewer)  # load it into your R workspace
 
 ---
 ## Popular Packages
+
 + To visualize data:
-    + ```ggplot2```: to create beautiful graphics
-    + ```googleVis```: to use Google Chart tools
-    + ```plotly```: to create interactive graphs
-    
+
+  + `ggplot2`: to create beautiful graphics
+  + `googleVis`: to use Google Chart tools
+  + `plotly`: to create interactive graphs
+
+--
+
 + To report results:
-    + ```shiny```: to create interactive web-based apps
-    + ```knitr```: to combine R codes and Latex/Markdown codes
-    + ```rmarkdown```: to create documents (slides, pdfs, html, et cetera)
-    + ```slidify```: to build HTML 5 slide shows
-    
+  + `shiny`: to create interactive web-based apps
+  + `knitr`: to combine R codes and Latex/Markdown codes
+  + `rmarkdown`: to create documents (slides, pdfs, html, et cetera)
+  + `slidify`: to build HTML 5 slide shows
+
+--
+
 + To write high-performance R code:
-    + ```rcpp```: to write R functions that call C++ code
-    + ```data.table```: to organize datasets for fast operations
-    + ```parallel```: to use parallel processing in R
+  + `rcpp`: to write R functions that call C++ code
+  + `data.table`: to organize datasets for fast operations
+  + `parallel`: to use parallel processing in R
+
+--
 
 Many others; this list changes quickly.
 
@@ -2228,6 +2281,7 @@ Many others; this list changes quickly.
 ?quantile
 ```
 
+--
 
 - Can see that `quantile()` has 5 arguments: 
 
@@ -2257,7 +2311,7 @@ Function help files
 
 --
 
-1. provide usage examples (scroll to)
+1. provide usage examples (scroll down)
 
 --
 
@@ -2270,6 +2324,8 @@ Function help files
 ## Where to get help:
 
 Thankfully there is this thing called the "internet."  
+
+--
 
 Google usually turns up one of the following, and in my experience these are usually the most helpful.
 
@@ -2291,7 +2347,7 @@ Especially for help with packages:
 ---
 ## Control Structures in R
 
-Before we continue to writing our own functions, we need to cover control structures and the `apply()` functions in R.
+Before we continue to writing our own functions, we need to cover **control structures** and the `apply()` functions in R.
 
 --
 
@@ -2350,7 +2406,8 @@ if (x&lt;3){
 ifelse(TF_vector, do_if_true, do_if_false)
 ```
 
-- `ifelse` is a vectorized version of an if statement
++ `ifelse` is a **vectorized** version of an if statement
+  + `if (TF_vector)` will only look at the first element in `TF_vector` 
 
 --
 
@@ -2377,7 +2434,7 @@ ifelse(x&lt;3, "small", "large")
 ```r
 while (condition){
   # do this over and over
-  # modify condition!
+  `# modify condition!`
 }
 ```
 
@@ -2440,20 +2497,20 @@ for (let in x){
 ---
 ## Control Structures: for 
 
-For any marginally complex operation, using a set of indices is usually better:
+For any marginally complex `for` loop, using a set of indices is usually better:
 
 --
 
-I've randomly sampled 25 letters with replacement and placed them in a 5x5 matrix below.
+For an example, I've randomly sampled 25 letters with replacement and placed them in a 5x5 matrix below.
 
 
 ```
 ##      [,1] [,2] [,3] [,4] [,5]
-## [1,] "x"  "c"  "t"  "m"  "r" 
-## [2,] "c"  "c"  "x"  "j"  "l" 
-## [3,] "e"  "g"  "j"  "p"  "i" 
-## [4,] "z"  "z"  "s"  "a"  "m" 
-## [5,] "g"  "m"  "x"  "w"  "a"
+## [1,] "o"  "e"  "k"  "b"  "r" 
+## [2,] "d"  "c"  "w"  "k"  "n" 
+## [3,] "n"  "j"  "w"  "c"  "u" 
+## [4,] "h"  "o"  "r"  "s"  "z" 
+## [5,] "i"  "o"  "b"  "n"  "x"
 ```
 
 --
@@ -2472,7 +2529,7 @@ print(y)
 ```
 
 ```
-## [1] "c" "x" "p" "m"
+## [1] "e" "w" "c" "z"
 ```
 
 
@@ -2485,13 +2542,13 @@ Learning to use the `apply()` family is essential for heavy R users.
 
 --
 
-- The basic idea behind these functiions is applying a function recursively on subsets of an object.
+- The basic idea behind these functions is applying a function recursively on subsets of an object.
 
   - As you can guess, it can often replace a `for` loop.  
 
 --
 
-- Most (if not all) parallel computing packages in R also require understanding how to use `lapply()` 
+- It's important to discuss here because most (if not all) parallel computing packages in R also require understanding how to use `lapply()` 
 
 --
 
@@ -2520,7 +2577,7 @@ Think of `apply()` as doing the following (assume `mat` is a 2D matrix):
 
 --
 
-1. breaks `mat` into components along the specified `MARGIN`
+1. breaks `mat` into **component vectors** along the specified `MARGIN`
 
   - `MARGIN=1` specifies rows, `MARGIN=2` specifies columns, and so on
   
@@ -2528,8 +2585,8 @@ Think of `apply()` as doing the following (assume `mat` is a 2D matrix):
 
 --
 
-1. performs the specified function `some_func` using each component 
-  - the role of each component (e.g. row) in the function is specified by the role of `x`.
+1. performs the specified function `some_func` using each **component vector** 
+  - the role of each component (e.g. row) in the function is specified by the role of `x` in `some_func(x, other_args)`.
 
 
 
@@ -2549,9 +2606,9 @@ round(mat,1) # for display on slide
 
 ```
 ##      col1 col2 col3 col4 col5 col6 col7 col8 col9 col10
-## row1  0.8 -1.2 -1.1  1.4 -0.6 -0.2  1.2 -0.3  1.9  -1.0
-## row2  5.8  5.0  4.4  4.5  4.8  4.1  5.3  6.2  4.7   7.1
-## row3 -1.7 -6.0 -5.1 -3.0 -3.7 -6.7 -5.8 -5.7 -5.5  -6.0
+## row1  0.6  0.5  0.2 -1.0  0.5 -0.3  1.4  0.0  0.5   1.5
+## row2  6.9  4.8  5.4  5.6  5.1  4.2  6.0  5.8  4.2   4.2
+## row3 -2.5 -3.6 -5.8 -9.0 -3.3 -5.4 -5.4 -7.5 -4.1  -3.6
 ```
 
 --
@@ -2587,8 +2644,8 @@ apply(mat, 1, mean)
 --
 
 ```
-##        row1        row2        row3 
-##  0.09411398  5.17812417 -4.91654450
+##       row1       row2       row3 
+##  0.3955136  5.2243514 -5.0073006
 ```
 
 
@@ -2609,7 +2666,7 @@ dimnames(mat) &lt;- list(paste0("row", 1:3),
                       paste0("col", 1:1000))
 ```
 
-We'll apply the `quantile()` function, but we'll specify that we want the .025, .5, and .975 quantiles.
+We'll apply the `quantile()` function, but we'll specify that we want the 0.025, 0.5, and 0.975 quantiles.
 
 
 --
@@ -2621,12 +2678,16 @@ apply(mat, 1, function(x) quantile(x, probs=c(.025, .5, .975)))
 
 ```
 ##              row1     row2      row3
-## 2.5%  -2.12694531 3.200499 -8.827524
-## 50%   -0.02031961 5.075538 -4.965022
-## 97.5%  1.75790640 7.137937 -1.234284
+## 2.5%  -2.08681189 3.059489 -8.701859
+## 50%   -0.00559977 5.026752 -4.982844
+## 97.5%  1.78587948 6.999134 -1.125134
 ```
 
+--
 
+You can also **write your own functions** and pass them into `apply()`.  
+--
+Which is awesome.
 
 
 
@@ -2661,7 +2722,7 @@ First and, if it is going to be complex, the most important step:
 
 --
 
-Second step:
+Second step: 
 --
 Think of other ways to describe what you need to do, and **Google to see if it already exists.**
 
@@ -2671,15 +2732,23 @@ Think of other ways to describe what you need to do, and **Google to see if it a
 ---
 ## Why not just copy and paste?
 
-Copy-pasting is a hassle in many ways (variable name management, messy code, etc.)
+Copy-pasting multiple lines of code is a hassle in many ways (variable name management, messy code, etc.)
 
 --
 
 Functions have a few other advantages:
 
-1. Do not pollute or interact with your workspace
+--
+
+1. They do not pollute or interact with your workspace
+
+--
+
 1. More concise, easier-to-understand code
-1. Realize you made a mistake in this thing you do over and over again?  Just change your function and re-run
+
+--
+
+1. Realize you made a mistake in this thing you do over and over again?  Just change your **function** and re-run everything.
 
 
 
@@ -2690,7 +2759,7 @@ Functions have a few other advantages:
 ```r
 my_func &lt;- function(arg1, arg2=1:4){  # declare function my_func
   result &lt;- sum(arg1) / sum(arg2)     # do stuff
-  return(result) 
+  return(result)                      # output
 }
 ```
 
@@ -2776,7 +2845,8 @@ A `function` in R performs a set of operations using arguments.
 
 --
 
-- your function will do the same thing each time you call it
+- your function will perform the same operation (on different arguments) each time you call it:
+
 
 ```r
 my_func(arg1=1:100)
@@ -2882,15 +2952,11 @@ diff(dat$date)
 
 ```
 ## Time differences in days
-##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##  [31] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##  [61] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##  [91] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-## [121] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-## [151] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-## [181] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-## [211] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-## [241] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [66] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## [131] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## [196] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## [261] 1 1 1 1 1 1 1
 ```
 
 
@@ -3042,6 +3108,7 @@ In addition, anything by Hadley Wickham:
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
+"highlightSpans": true,
 "highlightLines": true,
 "countIncrementalSlides": false
 });

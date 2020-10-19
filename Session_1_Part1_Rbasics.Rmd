@@ -13,6 +13,7 @@ output:
       - xaringan-themer.css
     nature:
       highlightStyle: github
+      highlightSpans: true
       highlightLines: true
       countIncrementalSlides: false
 ---
@@ -340,8 +341,8 @@ In the previous slide, you saw two code chunks using `==`
 --
 
 (Here is one of them again)
-```{r}
-log_vec2 <- char_vec=="red"
+```{r, eval=F}
+log_vec2 <- char_vec`==`"red"
 log_vec2
 ```
 
@@ -511,12 +512,13 @@ sex
 - **Will anyone else know what this means?!**
 
 --
-#### &nbsp;
+
 - Instead, let's recode this as a factor with clear labels:
 
 ```{r factors2}
-sex2 <- factor(sex, levels=c(0,1),  # original values
-              labels=c("Male", "Female")) # new values
+sex2 <- factor(sex, 
+               levels=c(0,1),  # original values
+               labels=c("Male", "Female")) # new values
 sex2
 ```
 
@@ -537,7 +539,8 @@ sex
 --
 
 ```{r}
-sex <- factor(sex, levels=c("Dude", "Dudette", "F", "Female", "M", "Male"),
+sex <- factor(sex, 
+              levels=c("Dude", "Dudette", "F", "Female", "M", "Male"),
               labels=c("Male", "Female", "Female", "Female", "Male", "Male"))
 sex
 ```
@@ -798,8 +801,8 @@ Providing names for the dimensions of an array -- use `dimnames()` -- will help 
 Unlike vectors, matrices, or arrays, **lists** can contain multiple data types and data structures, and each element in a list can be of different length/dimension.
 
 ```{r}
-myList <- list("sex"=sex, 
-               "rowMat"=rowMat)
+myList <- list("sex"=sex,       # a vector
+               "rowMat"=rowMat) # a matrix
 length(myList)
 myList
 ```
@@ -857,8 +860,8 @@ Careful:
 + `NaN` is considered to be `NA` 
 
 ```{r, echo=TRUE}
-NAvec <- c(NA, NaN)
-is.na(NAvec)
+na_vec <- c(NA, NaN)
+is.na(na_vec)
 ```
 
 --
@@ -866,7 +869,7 @@ is.na(NAvec)
 + but the reverse is NOT true
 
 ```{r, echo=TRUE}
-is.nan(NAvec)
+is.nan(na_vec)
 ```
 
 
@@ -886,7 +889,7 @@ Data frames are uniquely useful objects for data analysis!
 
 ```{r}
 female <- rep(c(0,1), times = 4)
-height <- sample(62:70, length(female))
+height <- sample(62:70, length(female), replace=TRUE)
 df <- data.frame(female, sex, height)
 df
 ```
@@ -904,14 +907,22 @@ Data frames combine features of lists and matrices
 
 Main functions for reading data into R:
 
+--
+
 1. `read.table()`, `read.csv()`: to read tabular data 
     + Type `?read.table` in your R console to see the important arguments in the function
     + `read.csv()` for comma separated value files 
         + Equivalent to `read.table()` with arguments `sep = ","` and `header = TRUE`
 
+--
+
 2. `readLines()`: to read lines of a text file
 
+--
+
 3. `source()`, `dget()`: to read R code
+
+--
 
 4. `load()`: to read saved workspaces and R data files (`.Rda`, `.Rdata`)
 
@@ -950,24 +961,46 @@ We will use data hosted online here (to get the most up-to-date data), but I sti
 ---
 ## Optional workshop item: R Projects
 
-Once you feel a bit more comfortable in R and RStudio, try starting your data analysis with a new **R project**:
+ 
+It's useful to know how to navigate file systems in R 
 
+--
+
+... but it can be a hassle.  
+
+--
+
+Once you feel a bit more comfortable in R and RStudio, try starting your data analysis with a new **R project**:  
 
 + in RStudio's banner menu, go to **File $\rightarrow$ New Project**
+
 + follow the options from there (self-explanatory)
+
+
+
+
+
+---
+## Optional workshop item: R Projects cont'd
+
+We won't go into detail on R Projects here, but it has many advantages:
+
++ working directory is by default set to the home folder of the project
+
+  + send the whole project to collaborators easily (filepaths won't break!)
+
++ saves its own, separate R workspace (easy to pick right back up)
+
++ integration with Git and Github
 
 
 --
 
-We won't go into detail on R Projects here, but it is a useful feature of RStudio that, in general, behaves the way you want it to.  Main advantages:
-
-+ working directory automagically set to home folder of the project 
-+ integration with Git and Github
-+ easier to make workflows that others can reproduce
-+ *notes:* 
-  + you can try it out for the things we do in this workshop
-  + keep everything for your project in the home folder / subfolders
-  + just remember to start working on your project by clicking on the **.Rproj** file in your local home folder, or the projects dropdown in the upper right of the RStudio banner.
++ *quick tips:* 
+  + all files for the project should be in the home folder or subfolders
+  + pick up where you left off on your project by 
+     1. clicking on the **.Rproj** file in your local home folder
+     1. using the project dropdown in the upper right of the RStudio banner.
 
 
 
@@ -1152,6 +1185,7 @@ We also use the single square brackets to subset data frames (2 dimensions!)
 - In the square brackets, the first position refers to the row(s) and the second position refers to the column(s)
 - i.e. `df[row_num, col_num]`
 
+
 --
 
 ```{r}
@@ -1197,7 +1231,7 @@ ct[1:6, 4]
 
 ---
 ## Subsetting using Index Vectors
-+ Another way to select more than one element from an object (vector, matrix, list, dataframe) is by using index vectors
++ Another way to select more than one element from an object (vector, matrix, list, dataframe) is by using **index vectors**
 
 + We will cover three types of index vectors: 
 
@@ -1215,9 +1249,10 @@ ct[1:6, 4]
 
 --
 
-+ Can be longer than the vector being subsetted if repeating elements (except logical index vector) 
++ An index vector can be longer than the vector being subsetted if repeating elements
 
 ```{r, eval=F}
+vac <- 1:10
 vec[c(1, 1, 1)]  # predict output
 ```
 --
@@ -1232,22 +1267,50 @@ vec[c(1, 1, 1)]
 ---
 ## 1. Logical Index Vector
 + A vector of `TRUE`/`FALSE` values of same length as the vector to be subsetted.
-    + Values corresponding to TRUE in the index vector are selected
 
 --
 ```{r}
-geq10k <- ct$cases >= 10000  # T/F returned 
+geq10k <- ct$cases > 10000  # T/F returned 
 length(geq10k)
+length(ct$cases)
 ```
 --
+
++ Values corresponding to TRUE in the index vector are selected
+
+--
+
 ```{r}
 tail(geq10k)
 tail(ct$cases)
 ```
+
+
+
+
+
+
+
+
+---
+## 1. Logical Index Vector, cont'd
++ A vector of `TRUE`/`FALSE` values of same length as the vector to be subsetted.
+
++ Values corresponding to TRUE in the index vector are selected
+
++ T/F can also be treated as 1/0
 --
+
 ```{r}
-sum(geq10k) # Treats TRUE as 1 and FALSE as 0
+sum(geq10k) # Treats TRUE as 1 and FALSE as 0 
 ```
+
+
+So we have `r sum(geq10k)` **observations** of cumulative case counts greater than 10,000
+
+--
+
+Since `r sum(geq10k)` entries may be too many to look at individually, we should figure out what we really want to know.
 
 
 
@@ -1257,17 +1320,26 @@ sum(geq10k) # Treats TRUE as 1 and FALSE as 0
 ---
 ## 1. Logical Index Vector, cont'd
 
-So we have `r sum(geq10k)` observations of cumulative case counts greater than 10,000
+Remember that each observation is a single county *on a single day*.
+
+We might be interested in how many counties have case counts above 10000.  
 
 --
 
-Since `r sum(geq10k)` entries may be too many to look at individually, we should figure out what we really want to know.
+We'll do this using the `unique()` function, which extracts only the first instance of a repeated value.
 
 --
 
-We might be interested in which counties these are, i.e. the unique counties marked as `cases >= 10000`
+```{r}
+length(unique(ct$county[geq10k]))
+```
 
 --
+
+If we want to see the names of all the counties, we can (but this won't fit on a single slide):
+
+--
+
 ```{r}
 unique(ct$county[geq10k])
 ```
@@ -1283,15 +1355,14 @@ unique(ct$county[geq10k])
 
 ---
 ## 2. Index Vector of Positive Integers
-+ A vector of positive integers identifying elements you want to subset
-+ We can use the function `which()` along with a logical test to create this index vector
-
++ A vector of positive integers identifying the position of the elements you want to subset
++ We can use the function `which()` along with logical conditions to create this index vector
+  + combine logical conditions using `&` for "and", or `|` for "or"
 
 ```{r}
 CA_geq5k <- which(ct$state=="California" 
-                 & ct$date=="2020-06-01"
-                 & ct$cases > 5000)
-CA_geq5k
+                  & ct$date=="2020-06-01"
+                  & ct$cases > 5000)
 ```
 
 --
@@ -1312,7 +1383,7 @@ ct[CA_geq5k, ]
 
 .pull-left[
 
-+ For example, we can use this to take a subset of the columns of the prestige data
++ For example, we can use this to take a subset of the columns of the NYTimes data
 ```{r}
 ct[1:5, c("county", "cases")]
 ```
@@ -1353,7 +1424,7 @@ ct[sort_inds[1:5],]
 ```
 --
 
-What went wrong? 
+**That doesn't look right**.  What went wrong? 
 
 
 
@@ -1373,11 +1444,11 @@ x <- c(4, 2, 1, 3, 5)
 
 --
 
-- If you were to place the elements of `x` in ascending order, which element in `x` would come first? second?
+- If you were to place the elements of `x` in ascending order, the 3rd element in `x` would come first, then the 2nd, then the 4th, 1st, and 5th
 
 --
 
-#### &nbsp;
+- This is what `order()` gives you:
 
 ```{r}
 order(x)
@@ -1392,24 +1463,24 @@ order(x)
 
 ---
 ## Understanding the problem cont'd
-Back to our problem: We made `sort_inds` from the subsetted data ...
+Back to our problem: We made `sort_inds` from a **subset** of the data (only June 1st)...
 
-```{r}
+```{r, eval=F}
 june1_inds <- which(ct$date=="2020-06-01")
-sort_inds <- order(ct$cases[june1_inds], decreasing=FALSE)
+sort_inds <- order(`ct$cases[june1_inds]`, decreasing=FALSE)
 ```
 --
 
-But then applied the order in `sort_inds` to the non-subsetted data.
+But then applied the order in `sort_inds` to the **non-subsetted** data.
 ```{r eval=F}
-ct[sort_inds[1:5],]
+`ct[sort_inds[1:5],]`
 ```
 
 --
 
 &nbsp;
 
-To see why that is a problem more clearly:
+We can also see the mismatch in lengths:
 ```{r}
 length(sort_inds)
 nrow(ct)
@@ -1443,7 +1514,11 @@ ct_june1[sort_inds[1:5],]
 
 #### &nbsp;
 
-*Brief aside:* Anything concerning or weird here?
+*Brief aside:* Anything concerning here? 
+
+--
+
+(you'll address it in the between-session "homework")
 
 
 
@@ -1489,7 +1564,11 @@ ct %>%
 
 Before we move on, let's save our data.
 
-To save (multiple) R objects into a file easily imported back into R, use `save()`.  (I find it useful to include a string vector listing the contents)
+To save (multiple) R objects into a file easily imported back into R, use `save()`.  
+
+--
+
++ (I find it useful to include a vector listing the contents of the file)
 
 --
 ```{r}
@@ -1503,7 +1582,15 @@ save(contents, ct, ct_june1, file="data/session1.Rdata")
 
 --
 
-- In addition to `getwd()`, `setwd()`, and the RStudio dropdown menus, you can also use the `here` package (not covered, um, here...)
++ In addition to `getwd()`, `setwd()`, and the RStudio dropdown menus, you can also use the `here` package (not covered, 
+--
+um, 
+--
+here...)
+
+--
+
++ using an R project also mitigates this worry for the most part
 
 --
 
@@ -1526,7 +1613,7 @@ load("data/session1.Rdata")
 You might have forgotten what is in there!  
 
 - If starting from an empty workspace, just look at the Environment pane in RStudio
-- Otherwise, that `contents` vector will be handy.
+- If your Environment pane is already full of stuff, that `contents` vector will be quite handy.
 
 --
 
@@ -1621,6 +1708,8 @@ class: inverse, animated, fadeIn
   - *Source*: the original version of a package with human-readable text and code
   - *Base packages*: part of the R source tree, maintained by R Core
 
+--
+
 - For more info on how R packages are developed, please read [Creating R Packages: A Tutorial](http://cran.r-project.org/doc/contrib/Leisch-CreatingPackages.pdf) by Friedrich Leisch.
 
 - Go to https://cran.r-project.org/web/packages/ for a list of all available packages.
@@ -1630,12 +1719,17 @@ class: inverse, animated, fadeIn
 ## Installing Packages
 There are two main ways to install a package in R:
 
+--
+
 1. Installing from CRAN: install a package directly from the repository
-    + Using R studio: `Tools > Install Packages...`
-    + From R console: `install.packages("name_of_package")`
+
+  + Using R studio: `Tools > Install Packages...`
+  + From R console: `install.packages("name_of_package")`
     
-    
+--
+
 2. Installing from source: first download the add-on R package and then type the following in your console:
+
     + `install.packages("path_to_file", repos = NULL, type = "source")` 
 
 Once you install a package, you need to load it into R using the function `library()`
@@ -1661,21 +1755,29 @@ library(RColorBrewer)  # load it into your R workspace
 
 ---
 ## Popular Packages
+
 + To visualize data:
-    + ```ggplot2```: to create beautiful graphics
-    + ```googleVis```: to use Google Chart tools
-    + ```plotly```: to create interactive graphs
-    
+
+  + `ggplot2`: to create beautiful graphics
+  + `googleVis`: to use Google Chart tools
+  + `plotly`: to create interactive graphs
+
+--
+
 + To report results:
-    + ```shiny```: to create interactive web-based apps
-    + ```knitr```: to combine R codes and Latex/Markdown codes
-    + ```rmarkdown```: to create documents (slides, pdfs, html, et cetera)
-    + ```slidify```: to build HTML 5 slide shows
-    
+  + `shiny`: to create interactive web-based apps
+  + `knitr`: to combine R codes and Latex/Markdown codes
+  + `rmarkdown`: to create documents (slides, pdfs, html, et cetera)
+  + `slidify`: to build HTML 5 slide shows
+
+--
+
 + To write high-performance R code:
-    + ```rcpp```: to write R functions that call C++ code
-    + ```data.table```: to organize datasets for fast operations
-    + ```parallel```: to use parallel processing in R
+  + `rcpp`: to write R functions that call C++ code
+  + `data.table`: to organize datasets for fast operations
+  + `parallel`: to use parallel processing in R
+
+--
 
 Many others; this list changes quickly.
 
@@ -1693,6 +1795,7 @@ Many others; this list changes quickly.
 ?quantile
 ```
 
+--
 
 - Can see that `quantile()` has 5 arguments: 
 
@@ -1722,7 +1825,7 @@ Function help files
 
 --
 
-1. provide usage examples (scroll to)
+1. provide usage examples (scroll down)
 
 --
 
@@ -1735,6 +1838,8 @@ Function help files
 ## Where to get help:
 
 Thankfully there is this thing called the "internet."  
+
+--
 
 Google usually turns up one of the following, and in my experience these are usually the most helpful.
 
@@ -1756,7 +1861,7 @@ Especially for help with packages:
 ---
 ## Control Structures in R
 
-Before we continue to writing our own functions, we need to cover control structures and the `apply()` functions in R.
+Before we continue to writing our own functions, we need to cover **control structures** and the `apply()` functions in R.
 
 --
 
@@ -1808,7 +1913,8 @@ if (x<3){
 ifelse(TF_vector, do_if_true, do_if_false)
 ```
 
-- `ifelse` is a vectorized version of an if statement
++ `ifelse` is a **vectorized** version of an if statement
+  + `if (TF_vector)` will only look at the first element in `TF_vector` 
 
 --
 
@@ -1829,7 +1935,7 @@ ifelse(x<3, "small", "large")
 ```{r while_syntax_do_not_run, eval=FALSE}
 while (condition){
   # do this over and over
-  # modify condition!
+  `# modify condition!`
 }
 ```
 
@@ -1875,15 +1981,15 @@ for (let in x){
 ---
 ## Control Structures: for 
 
-For any marginally complex operation, using a set of indices is usually better:
+For any marginally complex `for` loop, using a set of indices is usually better:
 
 --
 
-I've randomly sampled 25 letters with replacement and placed them in a 5x5 matrix below.
+For an example, I've randomly sampled 25 letters with replacement and placed them in a 5x5 matrix below.
 
 ```{r, echo=FALSE}
 letter_mat <- matrix(sample(letters, 25, replace=TRUE),
-            nrow=5)
+                     nrow=5)
 letter_mat
 ```
 
@@ -1911,13 +2017,13 @@ Learning to use the `apply()` family is essential for heavy R users.
 
 --
 
-- The basic idea behind these functiions is applying a function recursively on subsets of an object.
+- The basic idea behind these functions is applying a function recursively on subsets of an object.
 
   - As you can guess, it can often replace a `for` loop.  
 
 --
 
-- Most (if not all) parallel computing packages in R also require understanding how to use `lapply()` 
+- It's important to discuss here because most (if not all) parallel computing packages in R also require understanding how to use `lapply()` 
 
 --
 
@@ -1945,7 +2051,7 @@ Think of `apply()` as doing the following (assume `mat` is a 2D matrix):
 
 --
 
-1. breaks `mat` into components along the specified `MARGIN`
+1. breaks `mat` into **component vectors** along the specified `MARGIN`
 
   - `MARGIN=1` specifies rows, `MARGIN=2` specifies columns, and so on
   
@@ -1953,8 +2059,8 @@ Think of `apply()` as doing the following (assume `mat` is a 2D matrix):
 
 --
 
-1. performs the specified function `some_func` using each component 
-  - the role of each component (e.g. row) in the function is specified by the role of `x`.
+1. performs the specified function `some_func` using each **component vector** 
+  - the role of each component (e.g. row) in the function is specified by the role of `x` in `some_func(x, other_args)`.
 
 
 
@@ -2021,7 +2127,7 @@ dimnames(mat) <- list(paste0("row", 1:3),
                       paste0("col", 1:1000))
 ```
 
-We'll apply the `quantile()` function, but we'll specify that we want the .025, .5, and .975 quantiles.
+We'll apply the `quantile()` function, but we'll specify that we want the 0.025, 0.5, and 0.975 quantiles.
 
 
 --
@@ -2033,7 +2139,11 @@ apply(mat, 1, function(x) quantile(x, probs=c(.025, .5, .975)))
 apply(mat, 1, function(x) quantile(x, probs=c(.025, .5, .975)))
 ```
 
+--
 
+You can also **write your own functions** and pass them into `apply()`.  
+--
+Which is awesome.
 
 
 
@@ -2068,7 +2178,7 @@ First and, if it is going to be complex, the most important step:
 
 --
 
-Second step:
+Second step: 
 --
 Think of other ways to describe what you need to do, and **Google to see if it already exists.**
 
@@ -2078,15 +2188,23 @@ Think of other ways to describe what you need to do, and **Google to see if it a
 ---
 ## Why not just copy and paste?
 
-Copy-pasting is a hassle in many ways (variable name management, messy code, etc.)
+Copy-pasting multiple lines of code is a hassle in many ways (variable name management, messy code, etc.)
 
 --
 
 Functions have a few other advantages:
 
-1. Do not pollute or interact with your workspace
+--
+
+1. They do not pollute or interact with your workspace
+
+--
+
 1. More concise, easier-to-understand code
-1. Realize you made a mistake in this thing you do over and over again?  Just change your function and re-run
+
+--
+
+1. Realize you made a mistake in this thing you do over and over again?  Just change your **function** and re-run everything.
 
 
 
@@ -2096,7 +2214,7 @@ Functions have a few other advantages:
 ```{r}
 my_func <- function(arg1, arg2=1:4){  # declare function my_func
   result <- sum(arg1) / sum(arg2)     # do stuff
-  return(result) 
+  return(result)                      # output
 }
 ```
 
@@ -2165,7 +2283,8 @@ A `function` in R performs a set of operations using arguments.
 
 --
 
-- your function will do the same thing each time you call it
+- your function will perform the same operation (on different arguments) each time you call it:
+
 ```{r}
 my_func(arg1=1:100)
 my_func(arg1=1)
