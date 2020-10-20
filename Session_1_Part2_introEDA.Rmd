@@ -1,9 +1,7 @@
 ---
 title: "Intro to R and Data Visualization with ggplot2: Session 1 part 2: intro EDA with R"
 subtitle: UCI Data Science Initiative
-params: 
-  reportdate: "`r format(Sys.time(), '%d %B %Y')`"  # to be replaced
-date: "`r format(Sys.time(), '%d %B %Y')`"
+date: "22 June, 2020"
 author: "Arnold Seong"
 output:
   xaringan::moon_reader:
@@ -17,33 +15,20 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-
-  
-# output:
-#   html_document:
-#     highlight: tango
-
 ---
 
 
 
 ```{r setup, include=FALSE, message=F, echo=F, warning=F}
 library(xaringanthemer)
-# style_xaringan(
-  # code_inline_background_color = "#C0C0C0"
-#   text_font_family = "Droid Serif",
-#   text_font_url = "https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic",
-#   header_font_google = google_font("Yanone Kaffeesatz")
-# )
 style_mono_accent(base_color = "#3C989E")
-
-# knitr::opts_chunk$set(cache=FALSE, warning=FALSE, message=FALSE, echo=TRUE, warning=FALSE, error=FALSE)
-knitr::opts_chunk$set(cache=TRUE, warning=TRUE, message=TRUE, echo=TRUE, warning=TRUE, error=TRUE)
-
-#set scientific notation digit threshold
+knitr::opts_chunk$set(cache=FALSE, 
+                      warning=FALSE, 
+                      message=FALSE, 
+                      echo=TRUE, 
+                      warning=FALSE, 
+                      error=FALSE)
 options(scipen=10)
-
-#load libraries
 library(ggplot2)
 library(RColorBrewer)
 library(kableExtra)
@@ -85,8 +70,7 @@ class: animated, fadeIn
     + Unmute yourself temporarily (hold `Spacebar`).
 
 
-<!-- + To access course materials please visit the [IDA-with-R website](https://ucidatascienceinitiative.github.io/IDA-with-R/). -->
-<!-- + **Please [download](https://github.com/UCIDataScienceInitiative/IDA-with-R/archive/master.zip) & unzip the Github repository!** -->
+
 
 
 
