@@ -28,6 +28,7 @@ knitr::opts_chunk$set(cache=TRUE, warning=FALSE, message=FALSE, echo=TRUE, warni
 options(scipen=10)
 
 #load libraries
+library(dplyr)
 library(ggplot2)
 library(RColorBrewer)
 ```
@@ -1027,6 +1028,8 @@ Let's load the data.
 
 ```{r load_C19_data}
 ct <- read.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")
+ct$date <- as.Date(ct$date)
+ct <- ct %>% filter(date < "2020-06-23")
 ```
 
 

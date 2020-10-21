@@ -1159,13 +1159,13 @@ df
 ```
 ##   female    sex height
 ## 1      0   Male     65
-## 2      1 Female     66
-## 3      0   Male     70
+## 2      1 Female     68
+## 3      0   Male     67
 ## 4      1 Female     69
-## 5      0   Male     70
-## 6      1 Female     66
-## 7      0   Male     65
-## 8      1 Female     64
+## 5      0   Male     67
+## 6      1 Female     68
+## 7      0   Male     69
+## 8      1 Female     65
 ```
 
 --
@@ -1302,6 +1302,8 @@ Let's load the data.
 
 ```r
 ct &lt;- read.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")
+ct$date &lt;- as.Date(ct$date)
+ct &lt;- ct %&gt;% filter(date &lt; "2020-06-23")
 ```
 
 
@@ -1351,11 +1353,11 @@ tail(ct, 5)  # specify just the last 5 rows
 
 ```
 ##              date     county   state  fips cases deaths
-## 644674 2020-10-18 Sweetwater Wyoming 56037   415      2
-## 644675 2020-10-18      Teton Wyoming 56039   700      1
-## 644676 2020-10-18      Uinta Wyoming 56041   401      2
-## 644677 2020-10-18   Washakie Wyoming 56043   133      7
-## 644678 2020-10-18     Weston Wyoming 56045    93      0
+## 265104 2020-06-22 Sweetwater Wyoming 56037    56      0
+## 265105 2020-06-22      Teton Wyoming 56039   111      1
+## 265106 2020-06-22      Uinta Wyoming 56041   148      0
+## 265107 2020-06-22   Washakie Wyoming 56043    38      5
+## 265108 2020-06-22     Weston Wyoming 56045     1      0
 ```
 
 --
@@ -1390,11 +1392,11 @@ tail(ct, 5)  # specify just the last 5 rows
 
 ```
 ##              date     county   state  fips cases deaths
-## 644674 2020-10-18 Sweetwater Wyoming 56037   415      2
-## 644675 2020-10-18      Teton Wyoming 56039   700      1
-## 644676 2020-10-18      Uinta Wyoming 56041   401      2
-## 644677 2020-10-18   Washakie Wyoming 56043   133      7
-## 644678 2020-10-18     Weston Wyoming 56045    93      0
+## 265104 2020-06-22 Sweetwater Wyoming 56037    56      0
+## 265105 2020-06-22      Teton Wyoming 56039   111      1
+## 265106 2020-06-22      Uinta Wyoming 56041   148      0
+## 265107 2020-06-22   Washakie Wyoming 56043    38      5
+## 265108 2020-06-22     Weston Wyoming 56045     1      0
 ```
 
 After looking at the head and tail, what are some questions you have about the dataset?  What do you want to confirm about the dataset?
@@ -1616,7 +1618,7 @@ length(geq10k)
 ```
 
 ```
-## [1] 644678
+## [1] 265108
 ```
 
 ```r
@@ -1624,7 +1626,7 @@ length(ct$cases)
 ```
 
 ```
-## [1] 644678
+## [1] 265108
 ```
 --
 
@@ -1646,7 +1648,7 @@ tail(ct$cases)
 ```
 
 ```
-## [1] 142 415 700 401 133  93
+## [1]   5  56 111 148  38   1
 ```
 
 
@@ -1671,15 +1673,15 @@ sum(geq10k) # Treats TRUE as 1 and FALSE as 0
 ```
 
 ```
-## [1] 14403
+## [1] 1786
 ```
 
 
-So we have 14403 **observations** of cumulative case counts greater than 10,000
+So we have 1786 **observations** of cumulative case counts greater than 10,000
 
 --
 
-Since 14403 entries may be too many to look at individually, we should figure out what we really want to know.
+Since 1786 entries may be too many to look at individually, we should figure out what we really want to know.
 
 
 
@@ -1705,7 +1707,7 @@ length(unique(ct$county[geq10k]))
 ```
 
 ```
-## [1] 151
+## [1] 38
 ```
 
 --
@@ -1720,37 +1722,16 @@ unique(ct$county[geq10k])
 ```
 
 ```
-##   [1] "New York City"        "Westchester"          "Nassau"               "Suffolk"              "Cook"                
-##   [6] "Wayne"                "Bergen"               "Los Angeles"          "Essex"                "Hudson"              
-##  [11] "Miami-Dade"           "Union"                "Philadelphia"         "Middlesex"            "Fairfield"           
-##  [16] "Passaic"              "Rockland"             "Prince George's"      "New Haven"            "Orange"              
-##  [21] "Harris"               "Providence"           "Worcester"            "Montgomery"           "Fairfax"             
-##  [26] "Hartford"             "Dallas"               "Marion"               "Maricopa"             "Oakland"             
-##  [31] "Riverside"            "Hennepin"             "San Diego"            "Broward"              "Palm Beach"          
-##  [36] "Milwaukee"            "Clark"                "District of Columbia" "San Bernardino"       "Tarrant"             
-##  [41] "Salt Lake"            "Mecklenburg"          "Bexar"                "Hillsborough"         "King"                
-##  [46] "Shelby"               "Davidson"             "Travis"               "Franklin"             "Jefferson"           
-##  [51] "Lake"                 "Pima"                 "Duval"                "Gwinnett"             "Pinellas"            
-##  [56] "Fulton"               "Lee"                  "El Paso"              "Hidalgo"              "DuPage"              
-##  [61] "Cuyahoga"             "Ocean"                "Fresno"               "Kern"                 "Polk"                
-##  [66] "Baltimore"            "DeKalb"               "Charleston"           "Alameda"              "San Joaquin"         
-##  [71] "Baltimore city"       "St. Louis"            "Nueces"               "Yuma"                 "Cobb"                
-##  [76] "Orleans"              "Norfolk"              "Monmouth"             "Wake"                 "Yakima"              
-##  [81] "East Baton Rouge"     "Douglas"              "Cameron"              "Greenville"           "Sacramento"          
-##  [86] "Santa Clara"          "Macomb"               "Tulare"               "Collier"              "Denver"              
-##  [91] "Oklahoma"             "Tulsa"                "Mobile"               "Stanislaus"           "Fort Bend"           
-##  [96] "Contra Costa"         "Kane"                 "Escambia"             "Osceola"              "Imperial"            
-## [101] "Hamilton"             "Collin"               "Ada"                  "Will"                 "Galveston"           
-## [106] "Prince William"       "Webb"                 "Manatee"              "Delaware"             "Utah"                
-## [111] "Ventura"              "Richland"             "Allegheny"            "Denton"               "Erie"                
-## [116] "Pinal"                "San Francisco"        "Brazoria"             "Volusia"              "Kansas City"         
-## [121] "Ramsey"               "Lubbock"              "Honolulu"             "Horry"                "Johnson"             
-## [126] "Leon"                 "New Castle"           "Knox"                 "Bristol"              "Dane"                
-## [131] "Monterey"             "Anne Arundel"         "Kent"                 "Camden"               "San Mateo"           
-## [136] "Brown"                "Washoe"               "Washington"           "Adams"                "Plymouth"            
-## [141] "Pulaski"              "Arapahoe"             "Rutherford"           "Sedgwick"             "Brevard"             
-## [146] "Hall"                 "Waukesha"             "Guilford"             "Pasco"                "Pierce"              
-## [151] "St. Charles"
+##  [1] "New York City"        "Westchester"          "Nassau"               "Suffolk"             
+##  [5] "Cook"                 "Wayne"                "Bergen"               "Los Angeles"         
+##  [9] "Essex"                "Hudson"               "Miami-Dade"           "Union"               
+## [13] "Philadelphia"         "Middlesex"            "Fairfield"            "Passaic"             
+## [17] "Rockland"             "Prince George's"      "New Haven"            "Orange"              
+## [21] "Harris"               "Providence"           "Worcester"            "Montgomery"          
+## [25] "Fairfax"              "Hartford"             "Dallas"               "Marion"              
+## [29] "Maricopa"             "Oakland"              "Riverside"            "Hennepin"            
+## [33] "San Diego"            "Broward"              "Palm Beach"           "Milwaukee"           
+## [37] "Clark"                "District of Columbia"
 ```
 
 
@@ -1870,8 +1851,8 @@ ct[sort_inds[1:5],]
 ## 954  2020-03-09   Chatham North Carolina 37037     1      0
 ## 1180 2020-03-11 San Mateo     California  6081    15      0
 ## 2734 2020-03-15 Sheboygan      Wisconsin 55117     3      0
+## 2757 2020-03-16 Jefferson       Arkansas  5069     5      0
 ## 70   2020-02-04 Snohomish     Washington 53061     1      0
-## 71   2020-02-05  Maricopa        Arizona  4013     1      0
 ```
 --
 
@@ -1954,7 +1935,7 @@ nrow(ct)
 ```
 
 ```
-## [1] 644678
+## [1] 265108
 ```
 
 
@@ -1975,12 +1956,12 @@ ct_june1[sort_inds[1:5],]
 
 
 ```
-##              date                 county    state fips cases deaths
-## 197804 2020-06-01                Unknown   Kansas   NA     0      5
-## 198030 2020-06-01                Unknown Maryland   NA     0     46
-## 199584 2020-06-01                Unknown     Utah   NA     0      4
-## 196920 2020-06-01    Bristol Bay Borough   Alaska 2060     1      0
-## 196921 2020-06-01 Dillingham Census Area   Alaska 2070     1      0
+##              date              county          state fips cases deaths
+## 197804 2020-06-01             Unknown         Kansas   NA     0      5
+## 198030 2020-06-01             Unknown       Maryland   NA     0     46
+## 199584 2020-06-01             Unknown           Utah   NA     0      4
+## 199607 2020-06-01             Unknown Virgin Islands   NA     0      6
+## 196920 2020-06-01 Bristol Bay Borough         Alaska 2060     1      0
 ```
 
 --
@@ -2506,11 +2487,11 @@ For an example, I've randomly sampled 25 letters with replacement and placed the
 
 ```
 ##      [,1] [,2] [,3] [,4] [,5]
-## [1,] "o"  "e"  "k"  "b"  "r" 
-## [2,] "d"  "c"  "w"  "k"  "n" 
-## [3,] "n"  "j"  "w"  "c"  "u" 
-## [4,] "h"  "o"  "r"  "s"  "z" 
-## [5,] "i"  "o"  "b"  "n"  "x"
+## [1,] "j"  "i"  "v"  "o"  "z" 
+## [2,] "e"  "q"  "e"  "y"  "z" 
+## [3,] "h"  "r"  "h"  "h"  "m" 
+## [4,] "g"  "a"  "w"  "d"  "h" 
+## [5,] "y"  "n"  "k"  "r"  "s"
 ```
 
 --
@@ -2529,7 +2510,7 @@ print(y)
 ```
 
 ```
-## [1] "e" "w" "c" "z"
+## [1] "i" "e" "h" "h"
 ```
 
 
@@ -2606,9 +2587,9 @@ round(mat,1) # for display on slide
 
 ```
 ##      col1 col2 col3 col4 col5 col6 col7 col8 col9 col10
-## row1  0.6  0.5  0.2 -1.0  0.5 -0.3  1.4  0.0  0.5   1.5
-## row2  6.9  4.8  5.4  5.6  5.1  4.2  6.0  5.8  4.2   4.2
-## row3 -2.5 -3.6 -5.8 -9.0 -3.3 -5.4 -5.4 -7.5 -4.1  -3.6
+## row1 -1.0 -0.8  1.2  0.2 -1.3  1.0 -0.5  0.8 -0.9  -1.3
+## row2  6.6  3.8  3.4  5.8  5.5  5.5  3.5  4.4  4.5   6.2
+## row3 -6.3 -1.7 -4.8 -5.1 -5.6 -8.4 -4.1 -4.8 -4.2  -2.6
 ```
 
 --
@@ -2645,7 +2626,7 @@ apply(mat, 1, mean)
 
 ```
 ##       row1       row2       row3 
-##  0.3955136  5.2243514 -5.0073006
+## -0.2537539  4.9358333 -4.7553084
 ```
 
 
@@ -2678,9 +2659,9 @@ apply(mat, 1, function(x) quantile(x, probs=c(.025, .5, .975)))
 
 ```
 ##              row1     row2      row3
-## 2.5%  -2.08681189 3.059489 -8.701859
-## 50%   -0.00559977 5.026752 -4.982844
-## 97.5%  1.78587948 6.999134 -1.125134
+## 2.5%  -1.90548488 3.127196 -8.676743
+## 50%    0.04556389 4.992566 -5.036570
+## 97.5%  2.04993801 6.974710 -1.137295
 ```
 
 --
@@ -2952,11 +2933,10 @@ diff(dat$date)
 
 ```
 ## Time differences in days
-##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##  [66] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-## [131] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-## [196] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-## [261] 1 1 1 1 1 1 1
+##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [50] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [99] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## [148] 1 1
 ```
 
 
