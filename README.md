@@ -1,13 +1,9 @@
 # Data Exploration and Visualization using R and ggplot2
 
 # Description
-This course is intended to help people with little to no experience using R take their first steps on a data analysis. We provide a quick overview of introductory R programming, then focus on using R and ggplot2 for data exploration and visualization. 
+This course is intended to help people with little to no experience using R take their first steps on a data analysis. We provide an overview of introductory R programming, then focus on using R and ggplot2 for data exploration and visualization.  Please note that this workshop's focus is on getting you the tools you need to work with your data in R and visualize it; we will not be covering any statistical methods/tests.
 
-Notes: 
-1. planned topics for each session may change as time constraints dictate.
-2. slides/exercises still in progress at this time
-
-Please follow the [Pre-Workshop Instructions](#Instructions) prior to coming to the workshop.
+Please follow the [Pre-Workshop Instructions](#Instructions) prior to coming to the workshop to maximize our time.
 
 
 # Syllabus
